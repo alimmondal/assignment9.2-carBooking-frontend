@@ -41,7 +41,6 @@ export const carListingApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.car],
     }),
-
     // update
     updateCar: build.mutation({
       query: (data) => ({
@@ -58,6 +57,23 @@ export const carListingApi = baseApi.injectEndpoints({
         method: "DELETE",
       }),
       invalidatesTags: [tagTypes.car],
+    }),
+
+    postComment: build.mutation({
+      query: ({ id, data }) => ({
+        url: `comment/${id}`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: [tagTypes.comment],
+    }),
+
+    getComment: build.query({
+      query: (id: string) => ({
+        url: `${CAR_LISTING_URL}/comment/${id}`,
+        method: "GET",
+      }),
+      providesTags: [tagTypes.comment],
     }),
   }),
 });

@@ -57,12 +57,12 @@ const SingleService = ({
 
   // const { role } = getUserInfo() as any;
   return (
-    <div>
-      <Row gutter={{ xs: 8, sm: 16, md: 26, lg: 32 }}>
+    <div className="py-5">
+      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
         <Col className="gutter-row" lg={{ span: 12 }}>
-          <Image src={data?.imgUrl} width={500} height={500} alt="BMW X5 4x4" />
+          <Image src={data?.imgUrl} width={350} height={300} alt="BMW X5 4x4" />
         </Col>
-        <Col lg={{ span: 12 }}>
+        <Col className="px-3" lg={{ span: 12 }}>
           <h1 style={{ fontSize: "25px" }}>{data?.name}</h1>
 
           <div
@@ -107,7 +107,7 @@ const SingleService = ({
           </div>
           <br />
           <span>
-            <CommentOutlined /> Comment:
+            <CommentOutlined /> Reviews and Ratings::
             {data?.comments ? <p>{data?.comments}</p> : <p>no comments</p>}
           </span>
           <div className="" style={{ marginTop: "20px" }}>
