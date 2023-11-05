@@ -6,11 +6,10 @@ import { useAddAdminWithFormDataMutation } from "@/redux/api/adminApi";
 import { loginSchema } from "@/schemas/login";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Col, Row, message } from "antd";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
-import loginImage from "../../../assets/login-image.png";
+// import loginImage from "../../../assets/login-image.png";
 
-const RegisterPage = () => {
+const AdminRegisterPage = () => {
   const [addAdminWithFormData] = useAddAdminWithFormDataMutation();
   const router = useRouter();
 
@@ -42,9 +41,9 @@ const RegisterPage = () => {
         minHeight: "100vh",
       }}
     >
-      <Col sm={12} md={16} lg={10}>
+      {/* <Col sm={12} md={16} lg={10}>
         <Image src={loginImage} width={500} alt="login image" />
-      </Col>
+      </Col> */}
       <Col sm={12} md={8} lg={8}>
         <h1
           style={{
@@ -79,7 +78,6 @@ const RegisterPage = () => {
                 type="text"
                 size="large"
                 label="Phone Number"
-                required
               />
             </div>
             <div
@@ -92,7 +90,6 @@ const RegisterPage = () => {
                 type="password"
                 size="large"
                 label="User Password"
-                required
               />
             </div>
             <div>
@@ -114,7 +111,7 @@ const RegisterPage = () => {
               />
             </div>
             <Button type="primary" htmlType="submit">
-              Register
+              Add
             </Button>
           </Form>
         </div>
@@ -123,4 +120,4 @@ const RegisterPage = () => {
   );
 };
 
-export default RegisterPage;
+export default AdminRegisterPage;

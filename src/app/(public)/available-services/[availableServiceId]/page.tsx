@@ -1,11 +1,17 @@
 "use client";
 import Form from "@/components/Forms/Form";
 import FormDatePicker from "@/components/Forms/FormDatePicker";
+import FormInput from "@/components/Forms/FormInput";
 import UMModal from "@/components/ui/UMModal";
 import { useAddAppointmentMutation } from "@/redux/api/appointmentApi";
 import { useCarListingQuery } from "@/redux/api/carListingApi";
+import { useAddReviewsMutation } from "@/redux/api/reviewsApi";
 import { getUserInfo } from "@/services/auth.service";
-import { CommentOutlined } from "@ant-design/icons";
+import {
+  ArrowRightOutlined,
+  CommentOutlined,
+  SendOutlined,
+} from "@ant-design/icons";
 import { Button, Col, Row, message } from "antd";
 import { Dayjs } from "dayjs";
 import Image from "next/image";
@@ -27,7 +33,15 @@ const SingleService = ({
 
   // console.log(availableServiceId);
   //  const { id } = params;
-  const { data, isLoading } = useCarListingQuery(availableServiceId);
+  const { data, isLoading } = useCarListingQuery(availableServiceId, {
+    refetchOnMountOrArgChange: true,
+    pollingInterval: 5000,
+  });
+  // console.log(data);
+
+  // console.log(id);
+  const comments = data?.Reviews;
+  // console.log(comments);
 
   const datas = getUserInfo() as any;
   const role = datas.role;
@@ -35,6 +49,7 @@ const SingleService = ({
   // console.log(datas);
 
   const [addAppointment] = useAddAppointmentMutation();
+  const [addReviews] = useAddReviewsMutation();
 
   const onSubmit = async (listingId: string, values: any) => {
     const { startDate, endDate } = values;
@@ -55,10 +70,36 @@ const SingleService = ({
     }
   };
 
+  const onSubmitReview = async (values: any) => {
+    const comment = values.comment;
+    const id = data?.id;
+    const formData = {
+      comment,
+      listingId: id,
+    };
+    console.log(formData);
+    try {
+      const res = await addReviews(formData);
+      if (res) {
+        message.success("Comment submitted successfully!");
+      }
+    } catch (err: any) {
+      console.error(err.message);
+    }
+  };
+
+  const scrollToForm = () => {
+    const formElement = document.getElementById("reviewForm");
+    if (formElement) {
+      formElement.scrollIntoView({ behavior: "smooth" });
+      // You can use "auto" instead of "smooth" for an instant scroll
+    }
+  };
+
   // const { role } = getUserInfo() as any;
   return (
-    <div className="py-5">
-      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+    <div className="py-20">
+      <Row className="mb-10" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
         <Col className="gutter-row" lg={{ span: 12 }}>
           <Image src={data?.imgUrl} width={350} height={300} alt="BMW X5 4x4" />
         </Col>
@@ -84,31 +125,54 @@ const SingleService = ({
               fontSize: "12px",
             }}
           >
-            <span style={{ fontSize: "20px" }}>
-              <CommentOutlined /> Make a comment
+            <span
+              style={{ fontSize: "20px", cursor: "pointer" }}
+              onClick={() => scrollToForm()}
+            >
+              <CommentOutlined /> Make a{" "}
+              <span className="text-rose-500">comment</span>
             </span>
             {/* <span style={{ fontSize: "20px" }}>
-              <Link href={"/profile"}>
                 <ProfileOutlined />
-                Go to your profile
-              </Link>
             </span> */}
           </p>
-          <p>Price for single days from bdt</p>
+
+          <p className="my-2">Category:{data?.category}</p>
+
+          <h4>Price for single days from bdt</h4>
           <p>Price: {data?.price}</p>
-          <div
-            style={{
-              fontSize: "20px",
-            }}
-          >
+          <div>
             <br />
-            <h3>Key Features:</h3>
-            <p>{data?.description}</p>
+            <p
+              style={{
+                fontSize: "20px",
+              }}
+            >
+              Key Features:
+            </p>
+            <p
+              style={{
+                fontSize: "15px",
+              }}
+            >
+              {data?.description}
+            </p>
           </div>
           <br />
-          <span>
-            <CommentOutlined /> Reviews and Ratings::
-            {data?.comments ? <p>{data?.comments}</p> : <p>no comments</p>}
+          <span style={{ fontSize: "20px" }}>
+            <CommentOutlined /> Reviews and Ratings:
+          </span>
+          <span style={{ fontSize: "15px" }}>
+            <ul className="">
+              {comments?.map((comment: any) => (
+                <span key={comment} className="flex flex-row py-1">
+                  <ArrowRightOutlined />
+                  <li style={{ listStyle: "none" }} key={comment}>
+                    {comment?.comment}
+                  </li>
+                </span>
+              ))}
+            </ul>
           </span>
           <div className="" style={{ marginTop: "20px" }}>
             <Button
@@ -163,6 +227,41 @@ const SingleService = ({
           <p>You are not logged in</p>
         )}
       </UMModal>
+      <h3 className="text-center">Make your valuable comment</h3>
+      <div
+        id="reviewForm"
+        className=""
+        style={{
+          border: "1px solid #d9d9d9",
+          borderRadius: "5px",
+          padding: "10px",
+          margin: "20px 5%",
+        }}
+      >
+        <Form submitHandler={onSubmitReview}>
+          <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
+            <Col span={12}>
+              <div style={{ margin: "10px 0px" }}>
+                <FormInput
+                  type="text"
+                  name="comment"
+                  label="Reviews and Ratings"
+                  placeholder="Write your valuable review"
+                />
+              </div>
+            </Col>
+            <Col span={12}>
+              <Button
+                type="primary"
+                className="rounded-full h-20 w-20  text-[25px]"
+                htmlType="submit"
+              >
+                <SendOutlined />
+              </Button>
+            </Col>
+          </Row>
+        </Form>
+      </div>
     </div>
   );
 };

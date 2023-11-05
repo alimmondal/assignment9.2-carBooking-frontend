@@ -5,7 +5,7 @@ import LocalGuardianInfo from "@/components/StudentForms/LocalGuardianInfo";
 import StudentBasicInfo from "@/components/StudentForms/StudentBasicInfo";
 import StudentInfo from "@/components/StudentForms/StudentInfo";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
-import { useAddStudentWithFormDataMutation } from "@/redux/api/studentApi";
+import { useAddStudentWithFormDataMutation } from "@/redux/api/reviewsApi";
 import { message } from "antd";
 
 const CreateStudentPage = () => {

@@ -30,8 +30,8 @@ const AvailableServicePublic = async () => {
                 <PublicCard title={item.name} hoverable>
                   <Image
                     src={item.imgUrl}
-                    width={200}
-                    height={100}
+                    width={250}
+                    height={150}
                     alt="Avis"
                   />
                   {/* <h1>{item.name}</h1> */}

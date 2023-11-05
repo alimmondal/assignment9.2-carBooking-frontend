@@ -35,7 +35,7 @@ const SingleCarEditPage = ({ params }: ICarProps) => {
     name: data?.name || "",
     category: data?.category || "",
     price: data?.price || "",
-    comments: data?.comments || "",
+    // comments: data?.comments || "",
     description: data?.description || "",
     imgUrl: data?.imgUrl || "",
   };
@@ -100,17 +100,17 @@ const SingleCarEditPage = ({ params }: ICarProps) => {
                 </div>
               </Col>
 
-              <Col span={8} style={{ margin: "10px 0" }}>
+              {/* <Col span={8} style={{ margin: "10px 0" }}>
                 <div style={{ margin: "10px 0px" }}>
                   <FormInput
                     type="text"
                     name="comments"
                     label="comments"
                     placeholder="Keep it empty"
-                    // disabled={true}
+
                   />
                 </div>
-              </Col>
+              </Col> */}
 
               <Col
                 className="gutter-row"
@@ -129,7 +129,7 @@ const SingleCarEditPage = ({ params }: ICarProps) => {
               </Col>
             </Row>
             <Button type="primary" htmlType="submit">
-              add
+              Update
             </Button>
           </Form>
         </div>

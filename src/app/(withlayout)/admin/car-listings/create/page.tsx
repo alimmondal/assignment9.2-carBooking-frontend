@@ -82,19 +82,6 @@ const CreateCarPage = () => {
                 />
               </div>
             </Col>
-
-            <Col span={8} style={{ margin: "10px 0" }}>
-              <div style={{ margin: "10px 0px" }}>
-                <FormInput
-                  type="text"
-                  name="comments"
-                  label="comments"
-                  placeholder="Keep it empty"
-                  disabled={true}
-                />
-              </div>
-            </Col>
-
             <Col
               className="gutter-row"
               span={6}

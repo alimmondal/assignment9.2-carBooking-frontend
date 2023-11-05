@@ -2,7 +2,7 @@
 import ActionBar from "@/components/ui/ActionBar";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
 import UMTable from "@/components/ui/UMTable";
-import { useStudentsQuery } from "@/redux/api/studentApi";
+import { useStudentsQuery } from "@/redux/api/reviewsApi";
 import { useDebounced } from "@/redux/hooks";
 import {
   DeleteOutlined,

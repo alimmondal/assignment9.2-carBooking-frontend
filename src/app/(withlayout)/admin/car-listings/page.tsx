@@ -51,13 +51,12 @@ const CarListingPage = () => {
   const deleteHandler = async (id: string) => {
     message.loading("Deleting.....");
     try {
-      //   console.log(data);
+      // console.log(id);
       const res = await deleteCar(id);
       if (res) {
         message.success("Car Deleted successfully");
       }
     } catch (err: any) {
-      //   console.error(err.message);
       message.error(err.message);
     }
   };
