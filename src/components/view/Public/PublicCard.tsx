@@ -6,12 +6,16 @@ const PublicCard = ({
   title,
   hoverable,
   className,
+  onTableChange,
+  loading,
 }: {
   children: React.ReactNode;
   title: string;
   hoverable?: boolean;
   className?: string;
   navigateTo?: string;
+  loading?: boolean;
+  onTableChange?: (pagination: any, filter: any, sorter: any) => void;
 }) => (
   <Row gutter={{ xs: 8, sm: 16, md: 26, lg: 32 }} className="flex">
     <Col
@@ -23,7 +27,14 @@ const PublicCard = ({
       }}
     >
       <Space direction="vertical" size={16}>
-        <Card hoverable={hoverable} title={title} className={className}>
+        <Card
+          title={title}
+          loading={loading}
+          // @ts-ignore
+          onChange={onTableChange}
+          hoverable={hoverable}
+          className={className}
+        >
           {children}
         </Card>
       </Space>

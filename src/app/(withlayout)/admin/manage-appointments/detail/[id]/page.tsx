@@ -4,6 +4,7 @@ import { useAppointmentQuery } from "@/redux/api/appointmentApi";
 import { CommentOutlined, UserOutlined } from "@ant-design/icons";
 import { Col, Row } from "antd";
 import Image from "next/image";
+import ManageAppointments from "../../page";
 
 interface IProps {
   params: any;
@@ -107,6 +108,7 @@ const ReservationDetailPage = ({ params }: IProps) => {
           </span>
         </Col>
       </Row>
+      <ManageAppointments />
     </>
   );
 };

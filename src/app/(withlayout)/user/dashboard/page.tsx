@@ -169,13 +169,6 @@ const UserDashboard = () => {
               <h4>Full Name: {item?.fullName}</h4>
               <h4>Email: {item?.email}</h4>
               <h4>Address: {item?.address}</h4>
-              {/* <Button
-                type="primary"
-                style={{ margin: "15px 0" }}
-                href={`/user/dashboard/edit/${item.id}`}
-              >
-                Edit your profile
-              </Button> */}
             </div>
           ))}
         </div>
@@ -187,7 +180,7 @@ const UserDashboard = () => {
           {reservation?.map((item: any) => (
             <div key={item.id}>
               <Image
-                src={item.imgUrl}
+                src={item?.imgUrl}
                 width={100}
                 height={100}
                 alt="booking-car-image"

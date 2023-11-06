@@ -5,9 +5,7 @@ import { useAddUserWithFormDataMutation } from "@/redux/api/userApi";
 import { loginSchema } from "@/schemas/login";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Col, Row, message } from "antd";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
-import loginImage from "../../../assets/login-image.png";
 
 // type FormValues = {
 //   id: string;
@@ -49,9 +47,9 @@ const RegisterPage = () => {
         minHeight: "100vh",
       }}
     >
-      <Col sm={12} md={16} lg={10}>
+      {/* <Col sm={12} md={16} lg={10}>
         <Image src={loginImage} width={500} alt="login image" />
-      </Col>
+      </Col> */}
       <Col sm={12} md={8} lg={8}>
         <h3
           style={{
@@ -140,6 +138,7 @@ const RegisterPage = () => {
                 size="large"
                 label="Provide valid image url or keep empty"
                 placeholder="Image url"
+                disabled={true}
               />
             </div>
             <div

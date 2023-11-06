@@ -1,71 +1,58 @@
 "use client";
 import ActionBar from "@/components/ui/ActionBar";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
+import UMModal from "@/components/ui/UMModal";
 import UMTable from "@/components/ui/UMTable";
-import {
-  useDeleteDepartmentMutation,
-  useDepartmentsQuery,
-} from "@/redux/api/departmentApi";
+import { useDeleteUserMutation, useUsersQuery } from "@/redux/api/userApi";
 import { useDebounced } from "@/redux/hooks";
-import {
-  DeleteOutlined,
-  EditOutlined,
-  ReloadOutlined,
-} from "@ant-design/icons";
+import { DeleteOutlined, EyeOutlined } from "@ant-design/icons";
 import { Button, Input, message } from "antd";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { useState } from "react";
 
-const ManageDepartmentPage = () => {
+const ManageUsersPage = () => {
   const query: Record<string, any> = {};
+  const [deleteUser] = useDeleteUserMutation();
 
   const [page, setPage] = useState<number>(1);
   const [size, setSize] = useState<number>(10);
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [deleteDepartment] = useDeleteDepartmentMutation();
+  const [open, setOpen] = useState<boolean>(false);
+  const [adminId, setAdminId] = useState<string>("");
 
   query["limit"] = size;
   query["page"] = page;
   query["sortBy"] = sortBy;
   query["sortOrder"] = sortOrder;
-  // query["searchTerm"] = searchTerm;
 
-  const debouncedTerm = useDebounced({
+  const debouncedSearchTerm = useDebounced({
     searchQuery: searchTerm,
     delay: 600,
   });
 
-  if (!!debouncedTerm) {
-    query["searchTerm"] = debouncedTerm;
+  if (!!debouncedSearchTerm) {
+    query["searchTerm"] = debouncedSearchTerm;
   }
-  const { data, isLoading } = useDepartmentsQuery({ ...query });
-  console.log("Departments", data);
+  const { data, isLoading } = useUsersQuery({ ...query });
+  // console.log(data);
 
-  const departments = data?.departments;
+  const admins = data?.admins;
   const meta = data?.meta;
-
-  const deleteHandler = async (id: string) => {
-    message.loading("Deleting.....");
-    try {
-      //   console.log(data);
-      await deleteDepartment(id);
-      message.success("Department Deleted successfully");
-    } catch (err: any) {
-      //   console.error(err.message);
-      message.error(err.message);
-    }
-  };
 
   const columns = [
     {
-      title: "Title",
-      dataIndex: "title",
+      title: "Name",
+      dataIndex: "fullName",
     },
     {
-      title: "CreatedAt",
+      title: "Email",
+      dataIndex: "email",
+    },
+    {
+      title: "Created at",
       dataIndex: "createdAt",
       render: function (data: any) {
         return data && dayjs(data).format("MMM D, YYYY hh:mm A");
@@ -73,11 +60,22 @@ const ManageDepartmentPage = () => {
       sorter: true,
     },
     {
+      title: "Contact no.",
+      dataIndex: "phoneNumber",
+    },
+    {
       title: "Action",
+      dataIndex: "id",
       render: function (data: any) {
+        // console.log(data);
         return (
           <>
-            <Link href={`/super_admin/department/edit/${data?.id}`}>
+            <Link href={`/admin/manage-users/detail/${data}`}>
+              <Button onClick={() => console.log(data)} type="primary">
+                <EyeOutlined />
+              </Button>
+            </Link>
+            {/* <Link href={`/admin/manage-users/edit/${data}`}>
               <Button
                 style={{
                   margin: "0px 5px",
@@ -87,11 +85,15 @@ const ManageDepartmentPage = () => {
               >
                 <EditOutlined />
               </Button>
-            </Link>
+            </Link> */}
             <Button
-              onClick={() => deleteHandler(data?.id)}
               type="primary"
+              onClick={() => {
+                setOpen(true);
+                setAdminId(data);
+              }}
               danger
+              style={{ marginLeft: "3px" }}
             >
               <DeleteOutlined />
             </Button>
@@ -106,6 +108,7 @@ const ManageDepartmentPage = () => {
     setPage(page);
     setSize(pageSize);
   };
+
   const onTableChange = (pagination: any, filter: any, sorter: any) => {
     const { order, field } = sorter;
     // console.log(order, field);
@@ -119,49 +122,62 @@ const ManageDepartmentPage = () => {
     setSearchTerm("");
   };
 
+  const deleteUserHandler = async (id: string) => {
+    // console.log(id);
+    try {
+      const res = await deleteUser(id);
+      if (res) {
+        message.success("User Successfully Deleted!");
+        setOpen(false);
+      }
+    } catch (error: any) {
+      message.error(error.message);
+    }
+  };
+
   return (
     <div>
       <UMBreadCrumb
         items={[
+          {
+            label: "Profile",
+            link: "/profile",
+          },
           {
             label: "super_admin",
             link: "/super_admin",
           },
         ]}
       />
-
-      <ActionBar title="Department List">
+      <ActionBar title="Users List">
         <Input
-          type="text"
           size="large"
-          placeholder="Search..."
+          placeholder="Search"
+          onChange={(e) => setSearchTerm(e.target.value)}
           style={{
             width: "20%",
           }}
-          onChange={(e) => {
-            setSearchTerm(e.target.value);
-          }}
         />
-        <div>
-          <Link href="/super_admin/department/create">
-            <Button type="primary">Create</Button>
+        {/* <div>
+          <Link href="/admin/manage-users/create">
+            <Button type="primary">Create Admin</Button>
           </Link>
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
             <Button
-              onClick={resetFilters}
-              type="primary"
               style={{ margin: "0px 5px" }}
+              type="primary"
+              onClick={resetFilters}
             >
               <ReloadOutlined />
             </Button>
           )}
-        </div>
+        </div> */}
       </ActionBar>
 
       <UMTable
         loading={isLoading}
         columns={columns}
-        dataSource={departments}
+        dataSource={admins}
         pageSize={size}
         totalPages={meta?.total}
         showSizeChanger={true}
@@ -169,8 +185,17 @@ const ManageDepartmentPage = () => {
         onTableChange={onTableChange}
         showPagination={true}
       />
+
+      <UMModal
+        title="Remove user"
+        isOpen={open}
+        closeModal={() => setOpen(false)}
+        handleOk={() => deleteUserHandler(adminId)}
+      >
+        <p className="my-5">Do you want to remove this User?</p>
+      </UMModal>
     </div>
   );
 };
 
-export default ManageDepartmentPage;
+export default ManageUsersPage;

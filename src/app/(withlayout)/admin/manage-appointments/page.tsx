@@ -150,7 +150,6 @@ const ManageAppointments = () => {
                 onClick={() => console.log(data)}
                 type="primary"
               >
-                details
                 <EyeOutlined />
               </Button>
             </Link>

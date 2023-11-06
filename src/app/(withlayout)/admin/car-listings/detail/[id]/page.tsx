@@ -54,12 +54,6 @@ const SingleCarDetailPage = ({ params }: ICarProps) => {
                 fontSize: "12px",
               }}
             >
-              {/* <span style={{ fontSize: "20px" }}>
-                <CalendarOutlined />
-              </span>
-              <span style={{ fontSize: "20px" }}>
-                <CommentOutlined />
-              </span> */}
               <span style={{ fontSize: "20px" }}>
                 <Link href={"/profile"}>
                   <ProfileOutlined />
@@ -73,11 +67,6 @@ const SingleCarDetailPage = ({ params }: ICarProps) => {
             >
               <h3>Key Features:</h3>
               <p>{data?.description}</p>
-              {/* <ul className="">
-              {data?.features?.map((feature) => (
-                <li key={feature}>{feature}</li>
-              ))}
-            </ul> */}
             </div>
             <h3>
               <CommentOutlined />: {data?.comments}

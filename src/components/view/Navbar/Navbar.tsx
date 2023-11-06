@@ -1,7 +1,5 @@
 "use client";
-// import { authKey } from "@/constants/storageKey";
 import { useAppDispatch } from "@/redux/hooks";
-import { getUserInfo } from "@/services/auth.service";
 import { MenuOutlined } from "@ant-design/icons";
 import { Button, Drawer, Layout, Menu, Typography } from "antd";
 import Link from "next/link";
@@ -18,8 +16,6 @@ const Navbar = ({
   items: { key: string; label: string; href: string }[];
   hasSider?: boolean;
 }) => {
-  const { role } = getUserInfo() as any;
-  // const role = USER_ROLE.ADMIN;
   const pathname = usePathname();
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -36,25 +32,9 @@ const Navbar = ({
     window.scrollTo(0, 0);
   }, []);
 
-  // const logOut = () => {
-  //   removeUserInfo(authKey);
-  //   router.push("/login");
-  // };
-
   return (
     <Layout className="layout">
       <Header className="flex items-center">
-        {/* {hasSider && (
-          <Button
-            type="primary"
-            className="lg:hidden"
-            onClick={() => {
-              dispatch(showSidebarDrawer());
-            }}
-          >
-            <MenuOutlined />
-          </Button>
-        )} */}
         <Content>
           <Link href="/">
             <Title
@@ -78,10 +58,6 @@ const Navbar = ({
               <Link href={item.href}>{item.label}</Link>
             </Menu.Item>
           ))}
-
-          {/* {!role && (
-            <p onClick={() => router.push("/login")}>Sign In register</p>
-          )} */}
         </Menu>
 
         <Button type="primary" className="lg:hidden" onClick={showDrawer}>

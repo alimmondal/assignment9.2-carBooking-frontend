@@ -74,14 +74,6 @@ export const appointmentApi = baseApi.injectEndpoints({
       invalidatesTags: [tagTypes.reservation],
     }),
 
-    myRegistration: build.query({
-      query: () => ({
-        url: `${RESERVATION_URL}/my-registration`,
-        method: "GET",
-      }),
-      providesTags: [tagTypes.courseRegistration],
-    }),
-
     startRegistration: build.mutation({
       query: () => ({
         url: `${RESERVATION_URL}/start-registration`,
@@ -89,47 +81,12 @@ export const appointmentApi = baseApi.injectEndpoints({
       }),
     }),
 
-    mySemesterRegistrationCourses: build.query({
-      query: () => ({
-        url: `${RESERVATION_URL}/my-semester-registration-courses
-				`,
-        method: "GET",
-      }),
-      providesTags: [tagTypes.courseRegistration],
-    }),
-
-    enrollIntoCourse: build.mutation({
-      query: (data) => ({
-        url: `${RESERVATION_URL}/enroll-into-course`,
-        method: "POST",
-        data,
-      }),
-      invalidatesTags: [tagTypes.courseRegistration],
-    }),
-
-    withdrawFromCourse: build.mutation({
-      query: (data) => ({
-        url: `${RESERVATION_URL}/withdraw-from-course`,
-        method: "POST",
-        data,
-      }),
-      invalidatesTags: [tagTypes.courseRegistration],
-    }),
-
     confirmMyRegistration: build.mutation({
       query: () => ({
         url: `${RESERVATION_URL}/confirm-registration`,
         method: "POST",
       }),
-      invalidatesTags: [tagTypes.courseRegistration],
-    }),
-
-    startNewSemester: build.mutation({
-      query: (id) => ({
-        url: `${RESERVATION_URL}/${id}/start-new-semester`,
-        method: "POST",
-      }),
-      invalidatesTags: [tagTypes.courseRegistration],
+      invalidatesTags: [tagTypes.reservation],
     }),
   }),
 });
@@ -140,15 +97,8 @@ export const {
   useAddAppointmentMutation,
   useDeleteAppointmentMutation,
   useUpdateAppointmentMutation,
-
   useApproveAppointmentMutation,
   useCancelAppointmentMutation,
-  useStartRegistrationMutation,
-  useMySemesterRegistrationCoursesQuery,
-  useEnrollIntoCourseMutation,
-  useConfirmMyRegistrationMutation,
-  useWithdrawFromCourseMutation,
-  useStartNewSemesterMutation,
 } = appointmentApi;
 
 export default appointmentApi;

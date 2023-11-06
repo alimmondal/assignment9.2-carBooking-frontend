@@ -112,7 +112,7 @@ const UserManageAppointment = () => {
                 // onClick={() => console.log(data)}
                 type="primary"
               >
-                details
+                Details
                 <EyeOutlined />
               </Button>
             </Link>
@@ -121,7 +121,6 @@ const UserManageAppointment = () => {
               type="primary"
               danger
             >
-              Cancel Appointment
               <DeleteOutlined />
             </Button>
           </>

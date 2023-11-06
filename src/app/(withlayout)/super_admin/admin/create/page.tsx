@@ -1,6 +1,7 @@
 "use client";
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
+import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
 
 import { useAddAdminWithFormDataMutation } from "@/redux/api/adminApi";
 import { loginSchema } from "@/schemas/login";
@@ -26,7 +27,7 @@ const AdminRegisterPage = () => {
     try {
       const res = await addAdminWithFormData(values);
       if (res) {
-        message.success("User created successfully!");
+        message.success("Admin created successfully!");
       }
     } catch (err: any) {
       console.error(err.message);
@@ -34,89 +35,108 @@ const AdminRegisterPage = () => {
   };
 
   return (
-    <Row
-      justify="center"
-      align="middle"
-      style={{
-        minHeight: "100vh",
-      }}
-    >
-      {/* <Col sm={12} md={16} lg={10}>
+    <div className="">
+      <UMBreadCrumb
+        items={[
+          {
+            label: "Profile",
+            link: "/profile",
+          },
+          {
+            label: "super_admin",
+            link: "/super_admin",
+          },
+          {
+            label: "Manage-admin",
+            link: "/super_admin/admin",
+          },
+        ]}
+      />
+
+      <Row
+        justify="center"
+        align="middle"
+        style={{
+          minHeight: "100vh",
+        }}
+      >
+        {/* <Col sm={12} md={16} lg={10}>
         <Image src={loginImage} width={500} alt="login image" />
       </Col> */}
-      <Col sm={12} md={8} lg={8}>
-        <h1
-          style={{
-            margin: "15px 0px",
-          }}
-        >
-          First register and then login your account
-        </h1>
-        <div>
-          <Form submitHandler={onSubmit} resolver={yupResolver(loginSchema)}>
-            <div>
-              <FormInput
-                name="fullName"
-                type="text"
-                size="large"
-                label="Full Name"
-                required
-              />
-            </div>
-            <div>
-              <FormInput
-                name="email"
-                type="email"
-                size="large"
-                label="Email"
-                required
-              />
-            </div>
-            <div>
-              <FormInput
-                name="phoneNumber"
-                type="text"
-                size="large"
-                label="Phone Number"
-              />
-            </div>
-            <div
-              style={{
-                margin: "15px 0px",
-              }}
-            >
-              <FormInput
-                name="password"
-                type="password"
-                size="large"
-                label="User Password"
-              />
-            </div>
-            <div>
-              <FormInput
-                name="role"
-                type="text"
-                size="large"
-                label="Role"
-                required
-              />
-            </div>
-            <div>
-              <FormInput
-                name="address"
-                type="text"
-                size="large"
-                label="Address"
-                required
-              />
-            </div>
-            <Button type="primary" htmlType="submit">
-              Add
-            </Button>
-          </Form>
-        </div>
-      </Col>
-    </Row>
+        <Col sm={12} md={8} lg={8}>
+          <h1
+            style={{
+              margin: "15px 0px",
+            }}
+          >
+            Create Admin
+          </h1>
+          <div>
+            <Form submitHandler={onSubmit} resolver={yupResolver(loginSchema)}>
+              <div>
+                <FormInput
+                  name="fullName"
+                  type="text"
+                  size="large"
+                  label="Full Name"
+                  required
+                />
+              </div>
+              <div>
+                <FormInput
+                  name="email"
+                  type="email"
+                  size="large"
+                  label="Email"
+                  required
+                />
+              </div>
+              <div>
+                <FormInput
+                  name="phoneNumber"
+                  type="text"
+                  size="large"
+                  label="Phone Number"
+                />
+              </div>
+              <div
+                style={{
+                  margin: "15px 0px",
+                }}
+              >
+                <FormInput
+                  name="password"
+                  type="password"
+                  size="large"
+                  label="User Password"
+                />
+              </div>
+              <div>
+                <FormInput
+                  name="role"
+                  type="text"
+                  size="large"
+                  label="Role"
+                  required
+                />
+              </div>
+              <div>
+                <FormInput
+                  name="address"
+                  type="text"
+                  size="large"
+                  label="Address"
+                  required
+                />
+              </div>
+              <Button className="mt-3" type="primary" htmlType="submit">
+                Add
+              </Button>
+            </Form>
+          </div>
+        </Col>
+      </Row>
+    </div>
   );
 };
 

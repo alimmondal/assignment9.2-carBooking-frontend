@@ -224,9 +224,13 @@ const SingleService = ({
             </Form>
           </div>
         ) : (
-          <p>You are not logged in</p>
+          <p>
+            You are not logged in. First <a href="/register">Register</a> and
+            then <span>Login</span>
+          </p>
         )}
       </UMModal>
+
       <h3 className="text-center">Make your valuable comment</h3>
       <div
         id="reviewForm"

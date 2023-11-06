@@ -2,7 +2,7 @@
 
 import PublicHeader from "@/components/view/Header/PublicHeader/PublicHeader";
 import Banner from "@/components/view/Public/Banner";
-import AvailableServicePublic from "./(public)/available-services/page";
+import AvailableService from "./(public)/available-services/page";
 
 const HomePage = () => {
   return (
@@ -15,7 +15,7 @@ const HomePage = () => {
             Weekend Car Rentals
           </h1>
 
-          <AvailableServicePublic />
+          <AvailableService />
         </div>
       </div>
     </>

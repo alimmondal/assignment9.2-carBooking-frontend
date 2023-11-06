@@ -5,7 +5,6 @@ import UMModal from "@/components/ui/UMModal";
 import UMTable from "@/components/ui/UMTable";
 import { useAdminsQuery, useDeleteAdminMutation } from "@/redux/api/adminApi";
 import { useDebounced } from "@/redux/hooks";
-import { IDepartment } from "@/types";
 import {
   DeleteOutlined,
   EditOutlined,
@@ -43,39 +42,19 @@ const AdminPage = () => {
     query["searchTerm"] = debouncedSearchTerm;
   }
   const { data, isLoading } = useAdminsQuery({ ...query });
-  console.log(data);
+  // console.log(data);
 
   const admins = data?.admins;
   const meta = data?.meta;
 
   const columns = [
     {
-      title: "Id",
-      dataIndex: "id",
-      sorter: true,
-    },
-    {
       title: "Name",
-      dataIndex: "name",
-      render: function (data: Record<string, string>) {
-        const fullName = `${data?.firstName} ${data?.middleName} ${data?.lastName}`;
-        return <>{fullName}</>;
-      },
+      dataIndex: "fullName",
     },
     {
       title: "Email",
       dataIndex: "email",
-    },
-    {
-      title: "Department",
-      dataIndex: "managementDepartment",
-      render: function (data: IDepartment) {
-        return <>{data?.title}</>;
-      },
-    },
-    {
-      title: "Designation",
-      dataIndex: "designation",
     },
     {
       title: "Created at",
@@ -87,7 +66,7 @@ const AdminPage = () => {
     },
     {
       title: "Contact no.",
-      dataIndex: "contactNo",
+      dataIndex: "phoneNumber",
     },
     {
       title: "Action",
@@ -96,7 +75,7 @@ const AdminPage = () => {
         // console.log(data);
         return (
           <>
-            <Link href={`/super_admin/admin/details/${data}`}>
+            <Link href={`/super_admin/admin/detail/${data}`}>
               <Button onClick={() => console.log(data)} type="primary">
                 <EyeOutlined />
               </Button>
@@ -165,6 +144,10 @@ const AdminPage = () => {
     <div>
       <UMBreadCrumb
         items={[
+          {
+            label: "Profile",
+            link: "/profile",
+          },
           {
             label: "super_admin",
             link: "/super_admin",
