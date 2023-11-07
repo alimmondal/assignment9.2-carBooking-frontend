@@ -26,7 +26,7 @@ const UserDashboard = () => {
   const loggedInUserAppointments = data?.appointments?.filter(
     (item) => item.userId === loggedInUser.id
   );
-  // console.log(userAppointments);
+  console.log(loggedInUserAppointments);
 
   const appointment = data?.appointments;
   const meta = data?.meta;
@@ -40,16 +40,6 @@ const UserDashboard = () => {
     };
   });
 
-  const reservation = appointment?.map((item) => {
-    // console.log(item);
-    const listing = item.listing;
-    return listing;
-  });
-  // console.log(reservation);
-
-  const verifiedCar = reservation?.find((item) => item?.id === loggedInUser.id);
-  // console.log(verifiedCar);
-
   const user = appointment?.map((item: any) => {
     // console.log(item);
     const user = item.user;
@@ -58,7 +48,23 @@ const UserDashboard = () => {
 
   // @ts-ignore
   const verifiedInUser = user?.filter((item) => item?.id === loggedInUser.id);
-  // console.log(user);
+
+  //find Reserved cars
+  const carListings = appointment?.map((item: any) => {
+    // console.log(item);
+    const listing = item.listing;
+    return {
+      label: listing,
+      value: item.id,
+    };
+  });
+
+  const loggedInUserReservation = loggedInUserAppointments?.[0];
+
+  const loggedInUserCar = carListings?.find(
+    (item: any) => item.value === loggedInUserReservation?.id
+  );
+  console.log(loggedInUserCar);
 
   const deleteHandler = async (id: string) => {
     message.loading("Deleting.....");
@@ -73,6 +79,53 @@ const UserDashboard = () => {
       message.error(err.message);
     }
   };
+
+  const carData = [
+    {
+      imgUrl: loggedInUserCar?.label?.imgUrl,
+      name: loggedInUserCar?.label?.name,
+      price: loggedInUserCar?.label?.price,
+      category: loggedInUserCar?.label?.category,
+      description: loggedInUserCar?.label?.description,
+    },
+  ];
+
+  const columns1 = [
+    {
+      title: "Image",
+      dataIndex: "imgUrl", // Assuming "image" is the property in your appointment data
+      render: (imgUrl: any) => (
+        <Image
+          src={imgUrl}
+          alt="Car Image"
+          height={100}
+          width={100}
+          // style={{ width: "100px", height: "100px" }}
+        />
+      ),
+      key: "imgUrl",
+    },
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "category",
+      dataIndex: "category",
+      key: "category",
+    },
+    {
+      title: "price",
+      dataIndex: "price",
+      key: "price",
+    },
+    {
+      title: "description",
+      dataIndex: "description",
+      key: "description",
+    },
+  ];
 
   const columns = [
     {
@@ -141,7 +194,7 @@ const UserDashboard = () => {
               type="primary"
               danger
             >
-              Cancel Appointment
+              Cancel
               <DeleteOutlined />
             </Button>
           </>
@@ -157,6 +210,10 @@ const UserDashboard = () => {
           {
             label: "Profile",
             link: "/profile",
+          },
+          {
+            label: "My-Appointments",
+            link: "/users/my-appointments",
           },
         ]}
       />
@@ -174,35 +231,23 @@ const UserDashboard = () => {
         </div>
       )}
 
-      <h2>Reserved Car Details:</h2>
-      {reservation && reservation.length > 0 && (
-        <div style={{ margin: "50px 0" }}>
-          {reservation?.map((item: any) => (
-            <div key={item.id}>
-              <Image
-                src={item?.imgUrl}
-                width={100}
-                height={100}
-                alt="booking-car-image"
-              />
-              <h4>Name: {item?.name}</h4>
-              <h4>Description: {item?.description}</h4>
-              <h4>Category: {item?.category}</h4>
-            </div>
-          ))}
-        </div>
-      )}
+      <ActionBar title="Reserved Car Details:"></ActionBar>
+      <UMTable
+        loading={isLoading}
+        columns={columns1}
+        dataSource={carData}
+        totalPages={meta?.total}
+        showSizeChanger={true}
+        showPagination={true}
+      />
 
       <ActionBar title="Reservation Detail"></ActionBar>
       <UMTable
         loading={isLoading}
         columns={columns}
         dataSource={loggedInUserAppointments}
-        // pageSize={size}
         totalPages={meta?.total}
         showSizeChanger={true}
-        // onPaginationChange={onPaginationChange}
-        // onTableChange={onTableChange}
         showPagination={true}
       />
     </div>
