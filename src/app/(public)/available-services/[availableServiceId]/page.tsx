@@ -64,6 +64,7 @@ const SingleService = ({
       const res = await addAppointment(formData);
       if (res) {
         message.success("Appointment submitted successfully!");
+        setOpen(false);
       }
     } catch (err: any) {
       console.error(err.message);

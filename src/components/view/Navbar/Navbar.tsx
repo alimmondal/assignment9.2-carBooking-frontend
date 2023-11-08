@@ -33,7 +33,18 @@ const Navbar = ({
   }, []);
 
   return (
-    <Layout className="layout">
+    <Layout
+      style={{
+        overflow: "auto",
+        // height: "100vh",
+        position: "sticky",
+        left: 0,
+        top: 0,
+        bottom: 0,
+        zIndex: "999",
+      }}
+      className="layout"
+    >
       <Header className="flex items-center">
         <Content>
           <Link href="/">

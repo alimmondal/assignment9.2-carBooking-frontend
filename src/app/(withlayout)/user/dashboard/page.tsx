@@ -23,31 +23,20 @@ const UserDashboard = () => {
 
   const [deleteAppointment] = useDeleteAppointmentMutation();
 
+  // Find loggedInUser appointments
   const loggedInUserAppointments = data?.appointments?.filter(
     (item) => item.userId === loggedInUser.id
   );
-  console.log(loggedInUserAppointments);
+  // console.log(loggedInUserAppointments);
 
   const appointment = data?.appointments;
   const meta = data?.meta;
 
-  const carListing = appointment?.map((item) => {
-    // console.log(item);
-    const listing = item.listing;
-    return {
-      label: listing?.name,
-      value: item.id,
-    };
-  });
-
-  const user = appointment?.map((item: any) => {
-    // console.log(item);
+  const user = data?.appointments?.map((item: any) => {
+    // console.log("item", item);
     const user = item.user;
     return user;
   });
-
-  // @ts-ignore
-  const verifiedInUser = user?.filter((item) => item?.id === loggedInUser.id);
 
   //find Reserved cars
   const carListings = appointment?.map((item: any) => {
@@ -59,12 +48,15 @@ const UserDashboard = () => {
     };
   });
 
-  const loggedInUserReservation = loggedInUserAppointments?.[0];
+  const loggedInUserCars = loggedInUserAppointments?.map((reservation) => {
+    const loggedInUserCar = carListings?.find(
+      (item) => item.value === reservation.id
+    );
 
-  const loggedInUserCar = carListings?.find(
-    (item: any) => item.value === loggedInUserReservation?.id
-  );
-  console.log(loggedInUserCar);
+    return loggedInUserCar;
+  });
+
+  // console.log(loggedInUserCars);
 
   const deleteHandler = async (id: string) => {
     message.loading("Deleting.....");
@@ -80,28 +72,12 @@ const UserDashboard = () => {
     }
   };
 
-  const carData = [
-    {
-      imgUrl: loggedInUserCar?.label?.imgUrl,
-      name: loggedInUserCar?.label?.name,
-      price: loggedInUserCar?.label?.price,
-      category: loggedInUserCar?.label?.category,
-      description: loggedInUserCar?.label?.description,
-    },
-  ];
-
   const columns1 = [
     {
       title: "Image",
-      dataIndex: "imgUrl", // Assuming "image" is the property in your appointment data
+      dataIndex: "imgUrl",
       render: (imgUrl: any) => (
-        <Image
-          src={imgUrl}
-          alt="Car Image"
-          height={100}
-          width={100}
-          // style={{ width: "100px", height: "100px" }}
-        />
+        <Image src={imgUrl} alt="Car Image" height={100} width={100} />
       ),
       key: "imgUrl",
     },
@@ -128,21 +104,21 @@ const UserDashboard = () => {
   ];
 
   const columns = [
-    {
-      title: "Name",
-      dataIndex: "name",
-      render: (data: any, record: { id: string }) => {
-        const matchingCarListing = carListing?.find(
-          (item) => item.value === record.id
-        );
+    // {
+    //   title: "Name",
+    //   dataIndex: "name",
+    //   render: (data: any, record: { id: string }) => {
+    //     const matchingCarListing = carListing?.find(
+    //       (item) => item.value === record.id
+    //     );
 
-        if (matchingCarListing) {
-          return matchingCarListing.label;
-        }
-        return data;
-      },
-      sorter: true,
-    },
+    //     if (matchingCarListing) {
+    //       return matchingCarListing.label;
+    //     }
+    //     return data;
+    //   },
+    //   sorter: true,
+    // },
     {
       title: "Reservation date",
       dataIndex: "createdAt",
@@ -218,24 +194,17 @@ const UserDashboard = () => {
         ]}
       />
 
-      {verifiedInUser && verifiedInUser.length > 0 && (
-        <div style={{ margin: "50px 0" }}>
-          <h1>Profile details:</h1>
-          {verifiedInUser?.map((item: any) => (
-            <div key={item.id}>
-              <h4>Full Name: {item?.fullName}</h4>
-              <h4>Email: {item?.email}</h4>
-              <h4>Address: {item?.address}</h4>
-            </div>
-          ))}
-        </div>
-      )}
-
       <ActionBar title="Reserved Car Details:"></ActionBar>
       <UMTable
         loading={isLoading}
         columns={columns1}
-        dataSource={carData}
+        dataSource={loggedInUserCars?.map((car) => ({
+          imgUrl: car?.label?.imgUrl,
+          name: car?.label?.name,
+          price: car?.label?.price,
+          category: car?.label?.category,
+          description: car?.label?.description,
+        }))}
         totalPages={meta?.total}
         showSizeChanger={true}
         showPagination={true}
