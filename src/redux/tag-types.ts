@@ -1,4 +1,5 @@
 export enum tagTypes {
+  signing = "signing",
   user = "user",
   comment = "comment",
   admin = "admin",
@@ -9,6 +10,7 @@ export enum tagTypes {
 }
 
 export const tagTypesList = [
+  tagTypes.signing,
   tagTypes.user,
   tagTypes.admin,
   tagTypes.car,

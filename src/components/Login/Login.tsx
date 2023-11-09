@@ -49,6 +49,11 @@ const LoginPage = () => {
         <Image src={loginImage} width={500} alt="login image" />
       </Col>
       <Col sm={12} md={8} lg={8}>
+        <h4>Login Information:</h4>
+        <p>super-admin: superAdmin@gmail.com</p>
+        <p>admin: admin@gmail.com</p>
+        <p>super-admin: user1@gmail.com</p>
+        <p>password: 123456</p>
         <h2
           style={{
             margin: "15px 0px",
@@ -61,7 +66,7 @@ const LoginPage = () => {
             <div>
               <FormInput
                 name="email"
-                type="email"
+                type="text"
                 size="large"
                 label="Email"
                 required

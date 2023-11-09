@@ -1,12 +1,13 @@
 "use client";
 import { useAppDispatch } from "@/redux/hooks";
+import { getUserInfo } from "@/services/auth.service";
 import { MenuOutlined } from "@ant-design/icons";
 import { Button, Drawer, Layout, Menu, Typography } from "antd";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const { Header, Content } = Layout;
+const { Header: AntHeader, Content } = Layout;
 const { Title } = Typography;
 
 const Navbar = ({
@@ -32,11 +33,12 @@ const Navbar = ({
     window.scrollTo(0, 0);
   }, []);
 
+  // const { role } = getUserInfo() as any;
+
   return (
     <Layout
       style={{
         overflow: "auto",
-        // height: "100vh",
         position: "sticky",
         left: 0,
         top: 0,
@@ -45,7 +47,7 @@ const Navbar = ({
       }}
       className="layout"
     >
-      <Header className="flex items-center">
+      <AntHeader className="flex items-center">
         <Content>
           <Link href="/">
             <Title
@@ -88,7 +90,7 @@ const Navbar = ({
             ))}
           </Menu>
         </Drawer>
-      </Header>
+      </AntHeader>
     </Layout>
   );
 };

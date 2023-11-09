@@ -1,10 +1,21 @@
 "use client";
 
+import { getUserInfo } from "@/services/auth.service";
+import Link from "next/link";
+
 const ProfileView = () => {
-  // const { role } = getUserInfo() as any;
+  const data = getUserInfo() as any;
   //   console.log(role);
   return (
-    <div>{/* <h1>{role == "admin" ? <p>admin</p> : <p>user</p>}</h1> */}</div>
+    <>
+      {data.role ? (
+        <Link className="" href="/profile">
+          Profile
+        </Link>
+      ) : (
+        <a href="/login">sign in</a>
+      )}
+    </>
   );
 };
 
