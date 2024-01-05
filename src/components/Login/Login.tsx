@@ -5,11 +5,13 @@ import { useUserLoginMutation } from "@/redux/api/authApi";
 import { loginSchema } from "@/schemas/login";
 import { storeUserInfo } from "@/services/auth.service";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Col, Row, message } from "antd";
+import { Col, Row, message } from "antd";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { SubmitHandler } from "react-hook-form";
 import loginImage from "../../assets/login-image.png";
+import Button from "../ui/Button";
 
 type FormValues = {
   email: string;
@@ -17,6 +19,7 @@ type FormValues = {
 };
 
 const LoginPage = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [userLogin] = useUserLoginMutation();
   const router = useRouter();
 
@@ -24,13 +27,14 @@ const LoginPage = () => {
 
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
     try {
+      setIsLoading(true);
       const res = await userLogin({ ...data }).unwrap();
       // console.log(res);
       if (res?.accessToken) {
         router.push("/profile");
         message.success("User logged in successfully!");
+        storeUserInfo({ accessToken: res?.accessToken });
       }
-      storeUserInfo({ accessToken: res?.accessToken });
       // console.log(res);
     } catch (err: any) {
       console.error(err.message);
@@ -85,9 +89,10 @@ const LoginPage = () => {
                 required
               />
             </div>
-            <Button type="primary" htmlType="submit">
+            {/* <Button type="primary" htmlType="submit">
               Login
-            </Button>
+            </Button> */}
+            <Button label={isLoading ? "Loading..." : "Login"} />
           </Form>
         </div>
         Do not have an account? <a href={"/register"}> Register</a>

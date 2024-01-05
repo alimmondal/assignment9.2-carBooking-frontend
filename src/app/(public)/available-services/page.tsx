@@ -21,7 +21,7 @@ const AvailableService = () => {
   query["page"] = page;
   query["sortBy"] = sortBy;
   query["sortOrder"] = sortOrder;
-  query["searchTerm"] = searchTerm;
+  // query["searchTerm"] = searchTerm;
 
   const debouncedTerm = useDebounced({
     searchQuery: searchTerm,
@@ -30,7 +30,13 @@ const AvailableService = () => {
   if (!!debouncedTerm) {
     query["searchTerm"] = debouncedTerm;
   }
-  const { data, isLoading } = useCarListingsQuery({ ...query });
+  const { data, isLoading } = useCarListingsQuery({
+    limit: size,
+    page: page,
+    sortBy: sortBy,
+    sortOrder: sortOrder,
+    searchTerm: debouncedTerm,
+  });
   // console.log("carListings", data);
 
   const cars = data?.cars;
@@ -52,7 +58,7 @@ const AvailableService = () => {
   return (
     <div className="my-5">
       <div className="ml-5">
-        <ActionBar title="Search Your Car List">
+        <ActionBar title="Search Your desired Car">
           <Input
             type="text"
             size="large"

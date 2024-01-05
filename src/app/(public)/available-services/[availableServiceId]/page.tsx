@@ -177,13 +177,14 @@ const SingleService = ({
           </span>
           <div className="" style={{ marginTop: "20px" }}>
             <Button
+              className="p"
               type="primary"
               onClick={() => {
                 setOpen(true);
                 setListingId(data?.id);
               }}
             >
-              Book an appointment
+              Book an Appointment
             </Button>
           </div>
         </Col>
@@ -252,6 +253,7 @@ const SingleService = ({
                   name="comment"
                   label="Reviews and Ratings"
                   placeholder="Write your valuable review"
+                  required
                 />
               </div>
             </Col>

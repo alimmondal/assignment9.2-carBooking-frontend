@@ -1,11 +1,13 @@
 "use client";
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
+import Button from "@/components/ui/Button";
 import { useAddUserWithFormDataMutation } from "@/redux/api/userApi";
 import { loginSchema } from "@/schemas/login";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Col, Row, message } from "antd";
+import { Col, Row, message } from "antd";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 // type FormValues = {
 //   id: string;
@@ -13,22 +15,15 @@ import { useRouter } from "next/navigation";
 // };
 
 const RegisterPage = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [addUserWithFormData] = useAddUserWithFormDataMutation();
   const router = useRouter();
 
   const onSubmit = async (values: any) => {
     // console.log(values);
 
-    // const obj = { ...values };
-    // const file = obj["file"];
-    // delete obj["file"];
-    // const data = JSON.stringify(obj);
-    // const formData = new FormData();
-    // formData.append("file", file as Blob);
-    // formData.append("data", data);
-    // message.loading("Creating...");
-
     try {
+      setIsLoading(true);
       const res = await addUserWithFormData(values);
       if (res) {
         router.push("/login");
@@ -154,7 +149,7 @@ const RegisterPage = () => {
                 placeholder="Your role is user"
               />
             </div>
-            <Button
+            {/* <Button
               style={{
                 margin: "10px 0",
               }}
@@ -162,7 +157,8 @@ const RegisterPage = () => {
               htmlType="submit"
             >
               Register
-            </Button>
+            </Button> */}
+            <Button label={isLoading ? "Loading..." : "Register"} />
           </Form>
         </div>
         Have an account?
