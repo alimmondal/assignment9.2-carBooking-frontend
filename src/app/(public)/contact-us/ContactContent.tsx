@@ -48,7 +48,7 @@ const ContactContent = () => {
       >
         <div className="absolute inset-0 bg-black opacity-70"></div>
         <div className="md:w-1/2 text-center text-white py-8 md:pt-20 md:mb-[-130px] z-10">
-          <h1 className=" text-4xl">Contact Us</h1>
+          <h1 className=" text-4xl ">Contact Us</h1>
           <p className="mt-2">
             Reach Out: Let us Collaborate on Simplifying Your Task Management
             Experience !
@@ -99,7 +99,7 @@ const ContactContent = () => {
             }}
           >
             <div>
-              <h1 className="text-3xl py-4 text-primary ">Send Message</h1>
+              <h1 className="text-3xl py-4 text-sky-500">Send Message</h1>
             </div>
             <form action="" className="text-slate-700">
               <ContactInput
@@ -127,10 +127,7 @@ const ContactContent = () => {
               />
 
               <div className="mt-4 w-32">
-                <Button
-                  label="Send"
-                  // onClick={handleSubmit(onSubmit)}
-                />
+                <Button outline label="Send" onClick={handleSubmit(onSubmit)} />
               </div>
             </form>
           </div>

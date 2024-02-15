@@ -11,11 +11,12 @@ const HomePage = () => {
       <div className="">
         <Banner />
         <div className="my-20">
-          <h1 className="my-10 text-rose-500 text-center">
-            Weekend Car Rentals
+          <h1 className="my-10 text-sky-700 text-center text-4xl">
+            Our Available Cars
           </h1>
-
-          <AvailableService />
+          <div className="">
+            <AvailableService />
+          </div>
         </div>
       </div>
     </>

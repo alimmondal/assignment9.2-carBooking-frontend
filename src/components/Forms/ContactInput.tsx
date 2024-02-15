@@ -51,7 +51,7 @@ const ContactInput: React.FC<InputProps> = ({
               outline-none
               bg-white
               font-light
-              border-2
+              border-b-2
               transition
               disabled:opacity-70
               disabled:cursor-not-allowed

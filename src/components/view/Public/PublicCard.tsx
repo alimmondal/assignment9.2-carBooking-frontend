@@ -17,13 +17,12 @@ const PublicCard = ({
   loading?: boolean;
   onTableChange?: (pagination: any, filter: any, sorter: any) => void;
 }) => (
-  <Row gutter={{ xs: 8, sm: 16, md: 26, lg: 32 }} className="flex">
+  <Row gutter={{ xs: 12, sm: 16, md: 26, lg: 32 }}>
     <Col
       // key={product.id}
       style={{ margin: "10px 0" }}
-      className="gutter-row"
       lg={{
-        span: 8,
+        span: 32,
       }}
     >
       <Space direction="vertical" size={16}>

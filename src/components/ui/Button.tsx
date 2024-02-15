@@ -5,6 +5,7 @@ import { IconType } from "react-icons";
 interface ButtonProps {
   label: string;
   disabled?: boolean;
+  className?: string;
   outline?: boolean;
   small?: boolean;
   custom?: boolean;
@@ -15,6 +16,7 @@ interface ButtonProps {
 const Button: React.FC<ButtonProps> = ({
   label,
   disabled,
+  className,
   outline,
   small,
   custom,
@@ -44,6 +46,7 @@ const Button: React.FC<ButtonProps> = ({
     ${small ? "text-sm font-light" : "text-md font-semibold"}
     ${small ? "py-1 px-2 border-[1px]" : "py-3 px-4 border-2"} 
     ${custom ? custom : ""}
+    ${className ? className : ""}
   `}
     >
       {Icon && <Icon size={24} />}

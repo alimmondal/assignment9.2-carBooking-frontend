@@ -70,11 +70,10 @@ const Banner = () => (
                 margin: "20px 0px",
                 backgroundColor: "black",
                 color: "white",
-                width: "35%",
-                padding: "2px 5px ",
                 fontWeight: "300",
                 letterSpacing: "3px",
               }}
+              className="px-2 py-3 w-56"
             >
               Keep Exploring <ArrowRightOutlined />
             </p>
@@ -146,11 +145,10 @@ const Banner = () => (
                 margin: "20px 0px",
                 backgroundColor: "black",
                 color: "white",
-                width: "35%",
-                padding: "2px 5px ",
                 fontWeight: "300",
                 letterSpacing: "3px",
               }}
+              className="px-2 py-3 w-56"
             >
               Keep Exploring <ArrowRightOutlined />
             </p>

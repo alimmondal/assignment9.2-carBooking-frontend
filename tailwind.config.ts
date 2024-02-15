@@ -15,10 +15,10 @@ const config: Config = {
       },
     },
   },
-  corePlugins: {
-    preflight: false,
-  },
-  important: true,
+  // corePlugins: {
+  //   preflight: false,
+  // },
+  // important: true,
   plugins: [],
 };
 export default config;

@@ -76,7 +76,7 @@ const AvailableService = () => {
       <Row className="px-20" gutter={{ xs: 8, sm: 16, md: 26, lg: 32 }}>
         <Col
           style={{ margin: "10px 0" }}
-          className="gutter-row flex gap-3 flex-wrap items-center justify-center"
+          className="flex gap-3 flex-wrap items-center justify-center"
           // lg={{
           //   span: 8,
           // }}
