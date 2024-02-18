@@ -37,7 +37,7 @@ const FormInput = ({
 
   return (
     <>
-      {required ? <span style={{ color: "red" }}>*</span> : null}
+      {/* {required ? <span style={{ color: "red" }}>*</span> : null} */}
       {label ? label : null}
       <Controller
         control={control}
@@ -59,6 +59,7 @@ const FormInput = ({
               {...field}
               value={value ? value : field.value}
               disabled={disabled}
+              required={required}
             />
           )
         }

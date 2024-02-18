@@ -2,6 +2,7 @@
 import Form from "@/components/Forms/Form";
 import FormDatePicker from "@/components/Forms/FormDatePicker";
 import FormInput from "@/components/Forms/FormInput";
+import Button from "@/components/ui/Button";
 import UMModal from "@/components/ui/UMModal";
 import { useAddAppointmentMutation } from "@/redux/api/appointmentApi";
 import { useCarListingQuery } from "@/redux/api/carListingApi";
@@ -12,9 +13,10 @@ import {
   CommentOutlined,
   SendOutlined,
 } from "@ant-design/icons";
-import { Button, Col, Row, message } from "antd";
+import { Col, Row, message } from "antd";
 import { Dayjs } from "dayjs";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const SingleService = ({
@@ -24,6 +26,7 @@ const SingleService = ({
     availableServiceId: string;
   };
 }) => {
+  const { push } = useRouter();
   const [open, setOpen] = useState<boolean>(false);
   const [listingId, setListingId] = useState<string>("");
   const [formValue, setFormValue] = useState<{
@@ -99,7 +102,7 @@ const SingleService = ({
 
   // const { role } = getUserInfo() as any;
   return (
-    <div className="py-20">
+    <div className="p-4 md:p-24">
       <Row className="mb-10" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
         <Col className="gutter-row" lg={{ span: 12 }}>
           <Image src={data?.imgUrl} width={350} height={300} alt="BMW X5 4x4" />
@@ -175,98 +178,89 @@ const SingleService = ({
               ))}
             </ul>
           </span>
-          <div className="" style={{ marginTop: "20px" }}>
-            <Button
-              className="p"
-              type="primary"
-              onClick={() => {
-                setOpen(true);
-                setListingId(data?.id);
-              }}
-            >
-              Book an Appointment
-            </Button>
+          <div className="max-w-fit" style={{ marginTop: "20px" }}>
+            {role ? (
+              <Button
+                label="Book an Appointment"
+                className="bg-sky-500 rounded-none border-none"
+                onClick={() => {
+                  setOpen(true);
+                  setListingId(data?.id);
+                }}
+              />
+            ) : (
+              <Button
+                label="Login to book a service"
+                className="bg-sky-500 rounded-none border-none"
+                onClick={() => push("/login")}
+              />
+            )}
           </div>
         </Col>
       </Row>
+
       <UMModal
         title="Select Date"
         isOpen={open}
         closeModal={() => setOpen(false)}
         handleOk={() => onSubmit(listingId, formValue)}
       >
-        {role ? (
-          <div>
-            <Form submitHandler={onSubmit}>
-              <div
-                style={{
-                  border: "1px solid #d9d9d9",
-                  borderRadius: "5px",
-                  padding: "15px",
-                  marginBottom: "10px",
-                }}
-              >
-                <FormDatePicker
-                  name="startDate"
-                  label="Start Date"
-                  size="large"
-                  onChange={(date, dateString) =>
-                    setFormValue({ ...formValue, startDate: date })
-                  }
-                />
-                <FormDatePicker
-                  name="endDate"
-                  label="end Date"
-                  size="large"
-                  onChange={(date, dateString) =>
-                    setFormValue({ ...formValue, endDate: date })
-                  }
-                />
-              </div>
-            </Form>
-          </div>
-        ) : (
-          <p>
-            You are not logged in. First <a href="/register">Register</a> and
-            then <span>Login</span>
-          </p>
-        )}
+        <div>
+          <Form submitHandler={onSubmit}>
+            <div
+              style={{
+                border: "1px solid #d9d9d9",
+                borderRadius: "5px",
+                padding: "15px",
+                marginBottom: "10px",
+              }}
+            >
+              <FormDatePicker
+                name="startDate"
+                label="Start Date"
+                size="large"
+                onChange={(date, dateString) =>
+                  setFormValue({ ...formValue, startDate: date })
+                }
+              />
+              <FormDatePicker
+                name="endDate"
+                label="end Date"
+                size="large"
+                onChange={(date, dateString) =>
+                  setFormValue({ ...formValue, endDate: date })
+                }
+              />
+            </div>
+          </Form>
+        </div>
       </UMModal>
 
-      <h3 className="text-center">Make your valuable comment</h3>
-      <div
-        id="reviewForm"
-        className=""
-        style={{
-          border: "1px solid #d9d9d9",
-          borderRadius: "5px",
-          padding: "10px",
-          margin: "20px 5%",
-        }}
-      >
+      {/* Review and ratings */}
+      <div className="border p-4 flex flex-col items-start md:w-1/3 mt-20 md:mt-72">
+        <h3 className="text-xl py-2 md:text-2xl">
+          Make your valuable comment here:
+        </h3>
         <Form submitHandler={onSubmitReview}>
-          <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
-            <Col span={12}>
-              <div style={{ margin: "10px 0px" }}>
-                <FormInput
-                  type="text"
-                  name="comment"
-                  label="Reviews and Ratings"
-                  placeholder="Write your valuable review"
-                  required
-                />
-              </div>
-            </Col>
-            <Col span={12}>
-              <Button
-                type="primary"
-                className="rounded-full h-20 w-20  text-[25px]"
-                htmlType="submit"
+          <div className="flex items-start justify-center gap-3">
+            <div className="">
+              <FormInput
+                type="text"
+                name="comment"
+                placeholder="Write your review"
+                required
+              />
+            </div>
+
+            <div className="flex items-center justify-center">
+              <button
+                className="rounded-full bg-sky-500 h-12 w-12 md:h-18 md:w-18  md:text-[25px] hover:opacity-75"
+                type="submit"
               >
                 <SendOutlined />
-              </Button>
-            </Col>
-          </Row>
+              </button>
+            </div>
+          </div>
         </Form>
       </div>
     </div>
