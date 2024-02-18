@@ -1,11 +1,3 @@
-.container {
-  margin: 10px 10px;
-  display: flex;
-  flex-direction: row;
-}
-.container h1 {
-  font-size: 50px;
-}
 .container p {
   font-size: 20px;
 }

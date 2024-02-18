@@ -9,12 +9,14 @@ const HomePage = () => {
     <>
       <PublicHeader />
       <div className="">
-        <Banner />
+        <div className="">
+          <Banner />
+        </div>
         <div className="my-20">
           <h1 className="my-10 text-sky-700 text-center text-4xl">
             Our Available Cars
           </h1>
-          <div className="">
+          <div className="overflow-hidden">
             <AvailableService />
           </div>
         </div>

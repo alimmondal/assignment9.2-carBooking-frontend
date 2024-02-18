@@ -12,27 +12,31 @@ import Link from "next/link";
 import styles from "../../../styles/banner.module.css";
 
 const Banner = () => (
-  <Carousel effect="fade" autoplay className={styles.container}>
+  <Carousel
+    effect="fade"
+    autoplay
+    className="w-full h-[80vh] flex md:flex-row md:p-24 p-3 flex-row-reverse"
+  >
     {/* slider-1 */}
     <div>
-      <Row className={styles.rowContainer}>
+      <Row justify="center" align="middle">
         <Col
           lg={{
             span: 8,
           }}
         >
-          <h1>
+          <h2 className="text-4xl">
             LET&apos;S FIND,
             <br />
-            RENT, BOOK A BMW X5 4x4
-          </h1>
+            RENT, BOOK A BMW X5
+          </h2>
           <div
             className="line"
             style={{
               height: "5px",
               margin: "20px 0",
               background: "#000",
-              width: "95%",
+              width: "90%",
             }}
           ></div>
 
@@ -61,7 +65,7 @@ const Banner = () => (
             Beauteous before up across felt sheepishly and more mournfully the
             wow so more flustered and one up pushed salamander collective
             blinked that iguanodon bid much some since hey far goodness jaguar
-            whil...
+            while...
           </p>
           <Link href={"/available-services"}>
             <p
@@ -92,16 +96,17 @@ const Banner = () => (
     </div>
     {/* slider-2 */}
     <div>
-      <Row className={styles.rowContainer}>
+      <Row justify="center" align="middle">
         <Col
           lg={{
             span: 8,
           }}
         >
-          <h1>
-            LET&apos;S Book
+          <h2 className="text-4xl">
+            LET&apos;S BOOK
             <br />A SERVICE OF FIAT-500
-          </h1>
+          </h2>
+
           <div
             className="line"
             style={{
@@ -136,7 +141,8 @@ const Banner = () => (
           <p>
             A spread opened patient and compulsively one placed seagull goodness
             python owing snapped yikes equitable when much the much Lorem ipsum
-            dolor sit, amet consectetur adipisicing elit. Eligendi, tenetur!...
+            s= dolor sit, amet consectetur adipisicing elit. Eligendi,
+            tenetur!...
           </p>
           <Link href={"/available-services"}>
             <p
