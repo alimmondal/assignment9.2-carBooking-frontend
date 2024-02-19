@@ -105,7 +105,7 @@ const SingleService = ({
     <div className="p-4 md:p-24">
       <Row className="mb-10" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
         <Col className="gutter-row" lg={{ span: 12 }}>
-          <Image src={data?.imgUrl} width={350} height={300} alt="BMW X5 4x4" />
+          <Image src={data?.imgUrl} width={550} height={500} alt="BMW X5 4x4" />
         </Col>
         <Col className="px-3" lg={{ span: 12 }}>
           <h1 style={{ fontSize: "25px" }}>{data?.name}</h1>
@@ -133,8 +133,9 @@ const SingleService = ({
               style={{ fontSize: "20px", cursor: "pointer" }}
               onClick={() => scrollToForm()}
             >
-              <CommentOutlined /> Make a{" "}
-              <span className="text-rose-500">comment</span>
+              <CommentOutlined className="text-sky-500 hover:text-rose-500" />{" "}
+              Make a{" "}
+              <span className="text-sky-500 hover:text-rose-500">comment</span>
             </span>
             {/* <span style={{ fontSize: "20px" }}>
                 <ProfileOutlined />
@@ -143,8 +144,8 @@ const SingleService = ({
 
           <p className="my-2">Category:{data?.category}</p>
 
-          <h4>Price for single days from bdt</h4>
-          <p>Price: {data?.price}</p>
+          <h4 className="">Price for single days from bdt</h4>
+          <p className="font-semibold">Price: {data?.price}</p>
           <div>
             <br />
             <p
@@ -163,26 +164,30 @@ const SingleService = ({
             </p>
           </div>
           <br />
-          <span style={{ fontSize: "20px" }}>
-            <CommentOutlined /> Reviews and Ratings:
-          </span>
-          <span style={{ fontSize: "15px" }}>
-            <ul className="">
-              {comments?.map((comment: any) => (
-                <span key={comment} className="flex flex-row py-1">
-                  <ArrowRightOutlined />
-                  <li style={{ listStyle: "none" }} key={comment}>
-                    {comment?.comment}
-                  </li>
-                </span>
-              ))}
-            </ul>
-          </span>
-          <div className="max-w-fit" style={{ marginTop: "20px" }}>
+
+          <ul className="">
+            {comments?.map((comment: any) => (
+              <span key={comment} className="">
+                <li style={{ listStyle: "none" }} key={comment}>
+                  {comment?.comment !== undefined && comment.comment !== "" && (
+                    <div className="">
+                      <div className="">
+                        <CommentOutlined /> Reviews and Ratings:
+                      </div>
+                      <div className="flex flex-row py-1">
+                        <ArrowRightOutlined />
+                        {comment.comment}
+                      </div>
+                    </div>
+                  )}
+                </li>
+              </span>
+            ))}
+          </ul>
+          <div className="max-w-fit mt-5">
             {role ? (
               <Button
                 label="Book an Appointment"
-                className="bg-sky-500 rounded-none border-none"
                 onClick={() => {
                   setOpen(true);
                   setListingId(data?.id);
@@ -191,7 +196,6 @@ const SingleService = ({
             ) : (
               <Button
                 label="Login to book a service"
-                className="bg-sky-500 rounded-none border-none"
                 onClick={() => push("/login")}
               />
             )}
@@ -237,7 +241,10 @@ const SingleService = ({
       </UMModal>
 
       {/* Review and ratings */}
-      <div className="border p-4 flex flex-col items-start md:w-1/3 mt-20 md:mt-72">
+      <div
+        id="reviewForm"
+        className="border p-4 flex flex-col items-start md:w-1/3 mt-20 md:mt-72"
+      >
         <h3 className="text-xl py-2 md:text-2xl">
           Make your valuable comment here:
         </h3>
@@ -257,7 +264,7 @@ const SingleService = ({
                 className="rounded-full bg-sky-500 h-12 w-12 md:h-18 md:w-18  md:text-[25px] hover:opacity-75"
                 type="submit"
               >
-                <SendOutlined />
+                <SendOutlined className="text-white" />
               </button>
             </div>
           </div>
