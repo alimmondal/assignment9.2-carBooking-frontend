@@ -14,7 +14,7 @@ import {
   useDeleteCarMutation,
 } from "@/redux/api/carListingApi";
 import { useDebounced } from "@/redux/hooks";
-import { Button, Input, message } from "antd";
+import { Input, message } from "antd";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { useState } from "react";
@@ -89,38 +89,21 @@ const CarListingPage = () => {
       title: "Action",
       render: function (data: any) {
         return (
-          <>
+          <div className="flex items-center justify-start gap-2">
             <Link href={`/admin/car-listings/detail/${data?.id}`}>
-              <Button
-                style={{
-                  margin: "0px 5px",
-                }}
-                onClick={() => console.log(data)}
-                type="primary"
-              >
-                details
-                <EyeOutlined />
-              </Button>
+              <div onClick={() => console.log(data)}>
+                <EyeOutlined className="text-sky-700 text-xl hover:opacity-70" />
+              </div>
             </Link>
             <Link href={`/admin/car-listings/edit/${data?.id}`}>
-              <Button
-                style={{
-                  margin: "0px 5px",
-                }}
-                onClick={() => console.log(data)}
-                type="primary"
-              >
-                <EditOutlined />
-              </Button>
+              <div onClick={() => console.log(data)}>
+                <EditOutlined className="text-sky-700 text-xl hover:opacity-70" />
+              </div>
             </Link>
-            <Button
-              onClick={() => deleteHandler(data?.id)}
-              type="primary"
-              danger
-            >
-              <DeleteOutlined />
-            </Button>
-          </>
+            <div onClick={() => deleteHandler(data?.id)}>
+              <DeleteOutlined className="text-rose-700 text-xl hover:opacity-70" />
+            </div>
+          </div>
         );
       },
     },
@@ -168,25 +151,20 @@ const CarListingPage = () => {
           type="text"
           size="large"
           placeholder="Search..."
-          style={{
-            width: "20%",
-          }}
+          className="w-1/2 md:w-1/5"
           onChange={(e) => {
             setSearchTerm(e.target.value);
           }}
         />
-        <div>
+        <div className="flex gap-2">
           <Link href="/admin/car-listings/create">
-            <Button type="primary">Create</Button>
+            <div className="bg-sky-700 text-white px-2">Create</div>
           </Link>
+
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
-            <Button
-              onClick={resetFilters}
-              type="primary"
-              style={{ margin: "0px 5px" }}
-            >
-              <ReloadOutlined />
-            </Button>
+            <button className="" onClick={resetFilters}>
+              <ReloadOutlined className="text-sky-700 text-xl hover:opacity-70" />
+            </button>
           )}
         </div>
       </ActionBar>

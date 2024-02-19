@@ -9,8 +9,8 @@ const PublicHeader = () => {
     { key: "2", label: "Services", href: "/available-services" },
     { key: "4", label: "About Us", href: "/about-us" },
     { key: "5", label: "Contact Us", href: "/contact-us" },
-    { key: "6", label: "Login", href: "/login" },
-    // { key: "5", label: "Dashboard", href: "/profile" },
+    // { key: "6", label: "Login", href: "/login" },
+    { key: "4", label: "Dashboard", href: "/profile" },
   ];
   return (
     <>

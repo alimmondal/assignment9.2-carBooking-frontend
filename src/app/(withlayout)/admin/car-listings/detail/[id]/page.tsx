@@ -1,8 +1,9 @@
 "use client";
+import Button from "@/components/ui/Button";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
 import { useCarListingQuery } from "@/redux/api/carListingApi";
 import { CommentOutlined, ProfileOutlined } from "@ant-design/icons";
-import { Button, Col, Row } from "antd";
+import { Col, Row } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -75,13 +76,13 @@ const SingleCarDetailPage = ({ params }: ICarProps) => {
             <br />
             <div>
               <Link href={"/admin/car-listings"}>
-                <Button type="primary">Delete</Button>
+                <Button className="max-w-fit" small label="Delete" />
               </Link>
             </div>
             <br />
             <div>
               <Link href={"/admin/car-listings"}>
-                <Button type="primary">Update</Button>
+                <Button className="max-w-fit" small label="Update" />
               </Link>
             </div>
           </Col>

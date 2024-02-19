@@ -1,11 +1,12 @@
 "use client";
 import { useAppDispatch } from "@/redux/hooks";
-import { getUserInfo } from "@/services/auth.service";
 import { MenuOutlined } from "@ant-design/icons";
 import { Button, Drawer, Layout, Menu, Typography } from "antd";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import logo from "../../../assets/car3.png";
 
 const { Header: AntHeader, Content } = Layout;
 const { Title } = Typography;
@@ -45,18 +46,26 @@ const Navbar = ({
         bottom: 0,
         zIndex: "999",
       }}
-      className="layout"
+      className=""
     >
-      <AntHeader className="flex items-center">
+      <AntHeader className="flex items-center justify-center overflow-hidden">
         <Content>
-          <Link href="/">
-            <Title
-              className={`m-0 text-white text-3xl ${
+          <Link
+            href="/"
+            className={`P-2 text-white  flex items-center justify-start ${
+              hasSider && "text-center lg:text-left"
+            }`}
+          >
+            {/* <Title
+              className={`P-2 flex items-center justify-start ${
                 hasSider && "text-center lg:text-left"
               }`}
-            >
-              Car booking
-            </Title>
+              style={{ color: "#fff", fontSize: "20px" }}
+            > */}
+            {/* Car booking */}
+            <Image src={logo} alt="" width={100} height={50} />
+            <h1 className="">GOOD DRIVE</h1>
+            {/* </Title> */}
           </Link>
         </Content>
         <Menu
@@ -73,7 +82,11 @@ const Navbar = ({
           ))}
         </Menu>
 
-        <Button type="primary" className="lg:hidden" onClick={showDrawer}>
+        <Button
+          type="primary"
+          className="flex self-center lg:hidden"
+          onClick={showDrawer}
+        >
           <MenuOutlined />
         </Button>
         <Drawer title="Menu" placement="right" onClose={onClose} open={open}>

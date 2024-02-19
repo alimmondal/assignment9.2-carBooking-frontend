@@ -1,4 +1,3 @@
-import FooterComponent from "@/components/view/Footer/Footer";
 import Providers from "@/lib/Providers";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -19,10 +18,7 @@ export default function RootLayout({
   return (
     <Providers>
       <html lang="en">
-        <body>
-          {children}
-          <FooterComponent />
-        </body>
+        <body>{children}</body>
       </html>
     </Providers>
   );

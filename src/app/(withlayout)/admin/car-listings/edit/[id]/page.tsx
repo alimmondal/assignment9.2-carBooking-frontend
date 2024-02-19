@@ -2,12 +2,13 @@
 
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
+import Button from "@/components/ui/Button";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
 import {
   useCarListingQuery,
   useUpdateCarMutation,
 } from "@/redux/api/carListingApi";
-import { Button, Col, Row, message } from "antd";
+import { Col, Row, message } from "antd";
 
 type ICarProps = {
   params: any;
@@ -39,6 +40,7 @@ const SingleCarEditPage = ({ params }: ICarProps) => {
     description: data?.description || "",
     imgUrl: data?.imgUrl || "",
   };
+
   const base = "admin";
   return (
     <div>
@@ -128,9 +130,7 @@ const SingleCarEditPage = ({ params }: ICarProps) => {
                 </div>
               </Col>
             </Row>
-            <Button type="primary" htmlType="submit">
-              Update
-            </Button>
+            <Button className="max-w-fit" small label="Update" />
           </Form>
         </div>
       </div>

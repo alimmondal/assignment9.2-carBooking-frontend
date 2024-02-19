@@ -63,9 +63,7 @@ const AvailableService = () => {
             type="text"
             size="large"
             placeholder="Search..."
-            style={{
-              width: "20%",
-            }}
+            className="w-1/2 md:w-1/5"
             onChange={(e) => {
               setSearchTerm(e.target.value);
             }}

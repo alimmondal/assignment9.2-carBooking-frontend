@@ -110,15 +110,7 @@ const SingleService = ({
         <Col className="px-3" lg={{ span: 12 }}>
           <h1 style={{ fontSize: "25px" }}>{data?.name}</h1>
 
-          <div
-            className="line"
-            style={{
-              height: "5px",
-              margin: "20px 0",
-              background: "#000",
-              width: "100%",
-            }}
-          ></div>
+          <div className="h-1 w-10/12 mt-5 bg-sky-500"></div>
           <p
             style={{
               display: "flex",
@@ -172,7 +164,8 @@ const SingleService = ({
                   {comment?.comment !== undefined && comment.comment !== "" && (
                     <div className="">
                       <div className="">
-                        <CommentOutlined /> Reviews and Ratings:
+                        <CommentOutlined className="text-xl text-sky-700" />{" "}
+                        Reviews and Ratings:
                       </div>
                       <div className="flex flex-row py-1">
                         <ArrowRightOutlined />
@@ -195,7 +188,7 @@ const SingleService = ({
               />
             ) : (
               <Button
-                label="Login to book a service"
+                label="Login to Book a Service"
                 onClick={() => push("/login")}
               />
             )}
