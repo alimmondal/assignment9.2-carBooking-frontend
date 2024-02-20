@@ -207,7 +207,7 @@ const ManageAppointments = () => {
           type="text"
           size="large"
           placeholder="Search..."
-          className="w-1/2 md:w-1/5"
+          className="w-1/2 md:w-1/5 mr-1"
           onChange={(e) => {
             setSearchTerm(e.target.value);
           }}
@@ -224,17 +224,19 @@ const ManageAppointments = () => {
         </div>
       </ActionBar>
 
-      <UMTable
-        loading={isLoading}
-        columns={columns}
-        dataSource={appointment}
-        pageSize={size}
-        totalPages={meta?.total}
-        showSizeChanger={true}
-        onPaginationChange={onPaginationChange}
-        onTableChange={onTableChange}
-        showPagination={true}
-      />
+      <div className="bg-white overflow-x-auto">
+        <UMTable
+          loading={isLoading}
+          columns={columns}
+          dataSource={appointment}
+          pageSize={size}
+          totalPages={meta?.total}
+          showSizeChanger={true}
+          onPaginationChange={onPaginationChange}
+          onTableChange={onTableChange}
+          showPagination={true}
+        />
+      </div>
     </div>
   );
 };

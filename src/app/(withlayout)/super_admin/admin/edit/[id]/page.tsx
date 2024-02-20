@@ -54,7 +54,7 @@ const EditAdminPage = ({ params }: any) => {
         ]}
       />
 
-      <div>
+      <div className="flex flex-col item-center justify-center">
         <Row
           justify="center"
           align="middle"
@@ -66,7 +66,6 @@ const EditAdminPage = ({ params }: any) => {
             <h1
               style={{
                 margin: "15px 0px",
-                textAlign: "center",
                 fontSize: "20px",
               }}
             >
@@ -123,8 +122,8 @@ const EditAdminPage = ({ params }: any) => {
                     required
                   />
                 </div>
-                <div className="max-w-fit">
-                  <Button label="Edit" small className="mt-3" />
+                <div className="max-w-fit ">
+                  <Button label="Edit" small className="mt-3 px-5 py-2 " />
                 </div>
               </Form>
             </div>

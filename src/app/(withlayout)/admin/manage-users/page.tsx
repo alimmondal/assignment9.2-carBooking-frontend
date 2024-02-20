@@ -5,9 +5,8 @@ import UMModal from "@/components/ui/UMModal";
 import UMTable from "@/components/ui/UMTable";
 import { useDeleteUserMutation, useUsersQuery } from "@/redux/api/userApi";
 import { useDebounced } from "@/redux/hooks";
-import { DeleteOutlined, EyeOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EyeOutlined, ReloadOutlined } from "@ant-design/icons";
 import { Input, message } from "antd";
-import dayjs from "dayjs";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -51,14 +50,14 @@ const ManageUsersPage = () => {
       title: "Email",
       dataIndex: "email",
     },
-    {
-      title: "Created at",
-      dataIndex: "createdAt",
-      render: function (data: any) {
-        return data && dayjs(data).format("MMM D, YYYY hh:mm A");
-      },
-      sorter: true,
-    },
+    // {
+    //   title: "Created at",
+    //   dataIndex: "createdAt",
+    //   render: function (data: any) {
+    //     return data && dayjs(data).format("MMM D, YYYY hh:mm A");
+    //   },
+    //   sorter: true,
+    // },
     {
       title: "Contact no.",
       dataIndex: "phoneNumber",
@@ -153,33 +152,33 @@ const ManageUsersPage = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
           className="w-1/2 md:w-1/5"
         />
-        {/* <div>
-          <Link href="/admin/manage-users/create">
+        <div>
+          {/* <Link href="/admin/manage-users/create">
             <Button type="primary">Create Admin</Button>
-          </Link>
+          </Link> */}
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
-            <Button
-              style={{ margin: "0px 5px" }}
-              type="primary"
+            <div
+              className="bg-sky-700 text-white px-2 py-1"
               onClick={resetFilters}
             >
-              <ReloadOutlined />
-            </Button>
+              <ReloadOutlined className="hover:opacity-70" />
+            </div>
           )}
-        </div> */}
+        </div>
       </ActionBar>
-
-      <UMTable
-        loading={isLoading}
-        columns={columns}
-        dataSource={admins}
-        pageSize={size}
-        totalPages={meta?.total}
-        showSizeChanger={true}
-        onPaginationChange={onPaginationChange}
-        onTableChange={onTableChange}
-        showPagination={true}
-      />
+      <div className="bg-white overflow-x-auto">
+        <UMTable
+          loading={isLoading}
+          columns={columns}
+          dataSource={admins}
+          pageSize={size}
+          totalPages={meta?.total}
+          showSizeChanger={true}
+          onPaginationChange={onPaginationChange}
+          onTableChange={onTableChange}
+          showPagination={true}
+        />
+      </div>
 
       <UMModal
         title="Remove user"

@@ -1,9 +1,10 @@
 "use client";
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
+import Button from "@/components/ui/Button";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
 import { useAdminQuery, useUpdateAdminMutation } from "@/redux/api/adminApi";
-import { Button, Col, Row, message } from "antd";
+import { Col, Row, message } from "antd";
 
 type IDProps = {
   params: any;
@@ -59,13 +60,7 @@ const EditAdminProfile = ({ params }: IDProps) => {
         <Image src={loginImage} width={500} alt="login image" />
       </Col> */}
         <Col sm={12} md={8} lg={8}>
-          <h3
-            style={{
-              margin: "15px 0px",
-            }}
-          >
-            Update your profile
-          </h3>
+          <h3 className="text-md md:text-2xl">Update your profile</h3>
           <div>
             <Form submitHandler={onSubmit} defaultValues={defaultValues}>
               <div
@@ -158,15 +153,7 @@ const EditAdminProfile = ({ params }: IDProps) => {
                   disabled={true}
                 />
               </div>
-              <Button
-                style={{
-                  margin: "10px 0",
-                }}
-                type="primary"
-                htmlType="submit"
-              >
-                Update
-              </Button>
+              <Button className="max-w-fit md:text-2xl" small label="Update" />
             </Form>
           </div>
         </Col>

@@ -9,7 +9,7 @@ import {
   useDeleteAppointmentMutation,
 } from "@/redux/api/appointmentApi";
 import { getUserInfo } from "@/services/auth.service";
-import { Button, message } from "antd";
+import { message } from "antd";
 import dayjs from "dayjs";
 import Link from "next/link";
 
@@ -103,27 +103,19 @@ const UserManageAppointment = () => {
       title: "Action",
       render: function (data: any) {
         return (
-          <>
+          <div className="flex gap-2">
             <Link href={`/user/my-appointments/detail/${data?.id}`}>
-              <Button
-                style={{
-                  margin: "0px 5px",
-                }}
-                // onClick={() => console.log(data)}
-                type="primary"
+              <div
+
+              // onClick={() => console.log(data)}
               >
-                Details
-                <EyeOutlined />
-              </Button>
+                <EyeOutlined className="text-sky-700 text-2xl hover:opacity-70" />
+              </div>
             </Link>
-            <Button
-              onClick={() => deleteHandler(data?.id)}
-              type="primary"
-              danger
-            >
-              <DeleteOutlined />
-            </Button>
-          </>
+            <div onClick={() => deleteHandler(data?.id)}>
+              <DeleteOutlined className="text-rose-700 text-2xl hover:opacity-70" />
+            </div>
+          </div>
         );
       },
     },
@@ -139,20 +131,20 @@ const UserManageAppointment = () => {
           },
         ]}
       />
-
-      <ActionBar title="Appointment List"></ActionBar>
-
-      <UMTable
-        loading={isLoading}
-        columns={columns}
-        dataSource={userAppointments}
-        // pageSize={size}
-        totalPages={meta?.total}
-        showSizeChanger={true}
-        // onPaginationChange={onPaginationChange}
-        // onTableChange={onTableChange}
-        showPagination={true}
-      />
+      <div className="overflow-x-auto bg-white">
+        <ActionBar title="Appointment List"></ActionBar>
+        <UMTable
+          loading={isLoading}
+          columns={columns}
+          dataSource={userAppointments}
+          // pageSize={size}
+          totalPages={meta?.total}
+          showSizeChanger={true}
+          // onPaginationChange={onPaginationChange}
+          // onTableChange={onTableChange}
+          showPagination={true}
+        />
+      </div>
     </div>
   );
 };

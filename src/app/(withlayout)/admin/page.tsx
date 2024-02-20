@@ -1,12 +1,15 @@
 "use client";
+import Button from "@/components/ui/Button";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
 import { useAdminQuery } from "@/redux/api/adminApi";
 import { getUserInfo } from "@/services/auth.service";
 import { UserOutlined } from "@ant-design/icons";
-import { Button } from "antd";
+// import { Button } from "antd";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const AdminPage = () => {
+  const { push } = useRouter();
   const loggedInUser = getUserInfo() as any;
   // console.log(verifiedUser);
 
@@ -33,31 +36,43 @@ const AdminPage = () => {
         ]}
       />
 
-      <div style={{ margin: "50px 0" }}>
-        <h2>Profile details:</h2>
-
+      <div className="w-full flex flex-col items-center justify-center">
+        <h2 className="text-2xl">Admin Profile:</h2>
         <div>
-          {data?.imgSrc ? (
-            <Image
-              src={data?.imgSrc}
-              alt="profile image"
-              width={100}
-              height={100}
-            />
-          ) : (
-            <UserOutlined style={{ fontSize: "100px" }} />
-          )}
-          <h4>Full Name: {data?.fullName}</h4>
-          <h4>Full Name: {data?.phoneNumber}</h4>
-          <h4>Email: {data?.email}</h4>
-          <h4>Address: {data?.address}</h4>
+          <div className="my-5">
+            {data?.imgSrc ? (
+              <Image
+                src={data?.imgSrc}
+                alt="profile image"
+                width={100}
+                height={100}
+              />
+            ) : (
+              <UserOutlined style={{ fontSize: "100px" }} />
+            )}
+          </div>
+          <div className="">
+            <h4>
+              <span className="font-semibold">Full Name:</span> {data?.fullName}
+            </h4>
+            <h4>
+              <span className="font-semibold">Full Name:</span>
+              {data?.phoneNumber}
+            </h4>
+            <h4>
+              <span className="font-semibold">Email:</span> {data?.email}
+            </h4>
+            <h4>
+              <span className="font-semibold">Address:</span> {data?.address}
+            </h4>
+          </div>
+
           <Button
-            type="primary"
-            style={{ margin: "15px 0" }}
-            href={`/admin/edit/${id}`}
-          >
-            Edit your profile
-          </Button>
+            className="max-w-fit mt-5"
+            small
+            label="Edit your profile"
+            onClick={() => push("/admin/edit/${id}")}
+          />
         </div>
       </div>
     </div>

@@ -30,7 +30,7 @@ const Button: React.FC<ButtonProps> = ({
       className={`
     disabled:opacity-70
     disabled:cursor-pointer
-    hover:opacity-80
+    hover:opacity-40
     transition
     w-full
     border-sky-500

@@ -12,7 +12,6 @@ import {
   ReloadOutlined,
 } from "@ant-design/icons";
 import { Input, message } from "antd";
-import dayjs from "dayjs";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -56,14 +55,14 @@ const AdminPage = () => {
       title: "Email",
       dataIndex: "email",
     },
-    {
-      title: "Created at",
-      dataIndex: "createdAt",
-      render: function (data: any) {
-        return data && dayjs(data).format("MMM D, YYYY hh:mm A");
-      },
-      sorter: true,
-    },
+    // {
+    //   title: "Created at",
+    //   dataIndex: "createdAt",
+    //   render: function (data: any) {
+    //     return data && dayjs(data).format("MMM D, YYYY hh:mm A");
+    //   },
+    //   sorter: true,
+    // },
     {
       title: "Contact no.",
       dataIndex: "phoneNumber",

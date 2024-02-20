@@ -1,12 +1,14 @@
 "use client";
+import Button from "@/components/ui/Button";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
 import {
   useAppointmentQuery,
   useDeleteAppointmentMutation,
 } from "@/redux/api/appointmentApi";
 import { CommentOutlined } from "@ant-design/icons";
-import { Button, Col, Row, message } from "antd";
+import { Col, Row, message } from "antd";
 import Image from "next/image";
+import Link from "next/link";
 
 interface IProps {
   params: any;
@@ -44,7 +46,9 @@ const UserAppointmentDetailPage = ({ params }: IProps) => {
           },
         ]}
       />
-      <h1>Appointment Details</h1>
+      <h1 className="font-semibold md:text-2xl text-sky-500">
+        Appointment Details:
+      </h1>
       <Row gutter={{ xs: 8, sm: 16, md: 26, lg: 32 }}>
         <Col className="gutter-row" lg={{ span: 12 }}>
           <Image
@@ -87,14 +91,14 @@ const UserAppointmentDetailPage = ({ params }: IProps) => {
             </span> */}
           </p>
           <p>Price for single days from bdt</p>
-          <p>Price: {carListing?.price}</p>
+          <p className="font-semibold">Price: {carListing?.price}</p>
           <div
             style={{
               fontSize: "20px",
             }}
           >
             <br />
-            <h3>Key Features:</h3>
+            <h2 className="">Key Features:</h2>
             <p>{carListing?.description}</p>
           </div>
           <br />
@@ -103,17 +107,21 @@ const UserAppointmentDetailPage = ({ params }: IProps) => {
             {carListing?.comments ? (
               <p>{carListing?.comments}</p>
             ) : (
-              <p>no comments</p>
+              <div className="flex gap-3">
+                <p>No comments</p>
+                <Link href={"/"} className="text-rose-700">
+                  Make a Comment
+                </Link>
+              </div>
             )}
           </span>
 
           <Button
-            style={{ marginTop: "20px" }}
+            className="max-w-fit my-5"
+            small
+            label="Cancel your appointment"
             onClick={() => deleteHandler(data?.id)}
-            type="primary"
-          >
-            Cancel your appointment
-          </Button>
+          />
         </Col>
       </Row>
     </>

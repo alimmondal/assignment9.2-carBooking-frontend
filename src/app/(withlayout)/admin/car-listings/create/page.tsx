@@ -2,9 +2,10 @@
 
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
+import Button from "@/components/ui/Button";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
 import { useAddCarMutation } from "@/redux/api/carListingApi";
-import { Button, Col, Row, message } from "antd";
+import { Col, Row, message } from "antd";
 
 const CreateCarPage = () => {
   const [addCar] = useAddCarMutation();
@@ -98,9 +99,9 @@ const CreateCarPage = () => {
               </div>
             </Col>
           </Row>
-          <Button type="primary" htmlType="submit">
-            add
-          </Button>
+          <div className="max-w-fit hover:opacity-40">
+            <Button label="Add" className="" />
+          </div>
         </Form>
       </div>
     </div>

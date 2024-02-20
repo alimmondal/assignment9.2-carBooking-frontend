@@ -9,7 +9,7 @@ import {
   useDeleteAppointmentMutation,
 } from "@/redux/api/appointmentApi";
 import { getUserInfo } from "@/services/auth.service";
-import { Button, message } from "antd";
+import { message } from "antd";
 import dayjs from "dayjs";
 import Image from "next/image";
 import Link from "next/link";
@@ -96,11 +96,11 @@ const UserDashboard = () => {
       dataIndex: "price",
       key: "price",
     },
-    {
-      title: "description",
-      dataIndex: "description",
-      key: "description",
-    },
+    // {
+    //   title: "description",
+    //   dataIndex: "description",
+    //   key: "description",
+    // },
   ];
 
   const columns = [
@@ -152,28 +152,19 @@ const UserDashboard = () => {
       title: "Action",
       render: function (data: any) {
         return (
-          <>
+          <div className="flex gap-2">
             <Link href={`/user/my-appointments/detail/${data?.id}`}>
-              <Button
-                style={{
-                  margin: "0px 5px",
-                }}
-                // onClick={() => console.log(data)}
-                type="primary"
+              <div
+
+              // onClick={() => console.log(data)}
               >
-                details
-                <EyeOutlined />
-              </Button>
+                <EyeOutlined className="text-sky-700 text-2xl hover:opacity-70" />
+              </div>
             </Link>
-            <Button
-              onClick={() => deleteHandler(data?.id)}
-              type="primary"
-              danger
-            >
-              Cancel
-              <DeleteOutlined />
-            </Button>
-          </>
+            <div onClick={() => deleteHandler(data?.id)}>
+              <DeleteOutlined className="text-sky-700 text-2xl hover:opacity-70" />
+            </div>
+          </div>
         );
       },
     },
@@ -194,31 +185,34 @@ const UserDashboard = () => {
         ]}
       />
 
-      <ActionBar title="Reserved Car Details:"></ActionBar>
-      <UMTable
-        loading={isLoading}
-        columns={columns1}
-        dataSource={loggedInUserCars?.map((car) => ({
-          imgUrl: car?.label?.imgUrl,
-          name: car?.label?.name,
-          price: car?.label?.price,
-          category: car?.label?.category,
-          description: car?.label?.description,
-        }))}
-        totalPages={meta?.total}
-        showSizeChanger={true}
-        showPagination={true}
-      />
-
-      <ActionBar title="Reservation Detail"></ActionBar>
-      <UMTable
-        loading={isLoading}
-        columns={columns}
-        dataSource={loggedInUserAppointments}
-        totalPages={meta?.total}
-        showSizeChanger={true}
-        showPagination={true}
-      />
+      <div className="overflow-x-auto bg-white py-14">
+        <ActionBar title="Reserved Car Details:"></ActionBar>
+        <UMTable
+          loading={isLoading}
+          columns={columns1}
+          dataSource={loggedInUserCars?.map((car) => ({
+            imgUrl: car?.label?.imgUrl,
+            name: car?.label?.name,
+            price: car?.label?.price,
+            category: car?.label?.category,
+            description: car?.label?.description,
+          }))}
+          totalPages={meta?.total}
+          showSizeChanger={true}
+          showPagination={true}
+        />
+      </div>
+      <div className="overflow-x-auto bg-white">
+        <ActionBar title="Reservation Detail:"></ActionBar>
+        <UMTable
+          loading={isLoading}
+          columns={columns}
+          dataSource={loggedInUserAppointments}
+          totalPages={meta?.total}
+          showSizeChanger={true}
+          showPagination={true}
+        />
+      </div>
     </div>
   );
 };

@@ -15,7 +15,6 @@ import {
 } from "@/redux/api/carListingApi";
 import { useDebounced } from "@/redux/hooks";
 import { Input, message } from "antd";
-import dayjs from "dayjs";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -77,14 +76,14 @@ const CarListingPage = () => {
       dataIndex: "price",
       sorter: true,
     },
-    {
-      title: "CreatedAt",
-      dataIndex: "createdAt",
-      render: function (data: any) {
-        return data && dayjs(data).format("MMM D, YYYY hh:mm A");
-      },
-      sorter: true,
-    },
+    // {
+    //   title: "CreatedAt",
+    //   dataIndex: "createdAt",
+    //   render: function (data: any) {
+    //     return data && dayjs(data).format("MMM D, YYYY hh:mm A");
+    //   },
+    //   sorter: true,
+    // },
     {
       title: "Action",
       render: function (data: any) {
@@ -162,9 +161,12 @@ const CarListingPage = () => {
           </Link>
 
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
-            <button className="" onClick={resetFilters}>
-              <ReloadOutlined className="text-sky-700 text-xl hover:opacity-70" />
-            </button>
+            <div
+              className="bg-sky-700 text-white px-2 py-1"
+              onClick={resetFilters}
+            >
+              <ReloadOutlined className="hover:opacity-70" />
+            </div>
           )}
         </div>
       </ActionBar>

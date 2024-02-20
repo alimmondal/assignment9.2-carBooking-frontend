@@ -22,8 +22,8 @@ const UserDetailPage = ({ params }: IProps) => {
           },
         ]}
       />
-      <h2>User Details</h2>
-      <div className="my-5">
+      <div className="my-5 w-full flex flex-col items-center justify-center">
+        <h2 className="text-xl font-semibold">User Details</h2>
         {data?.imgUrl ? (
           <Image src={data?.imgUrl} alt="user image" width={100} height={100} />
         ) : (
