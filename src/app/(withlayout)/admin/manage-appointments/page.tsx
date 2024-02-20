@@ -15,7 +15,7 @@ import {
   useCancelAppointmentMutation,
 } from "@/redux/api/appointmentApi";
 import { useDebounced } from "@/redux/hooks";
-import { Button, Input, message } from "antd";
+import { Input, message } from "antd";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { useState } from "react";
@@ -109,14 +109,14 @@ const ManageAppointments = () => {
       },
       sorter: true,
     },
-    {
-      title: "Reservation date",
-      dataIndex: "createdAt",
-      render: function (data: any) {
-        return data && dayjs(data).format("MMM D, YYYY hh:mm A");
-      },
-      sorter: true,
-    },
+    // {
+    //   title: "Reservation date",
+    //   dataIndex: "createdAt",
+    //   render: function (data: any) {
+    //     return data && dayjs(data).format("MMM D, YYYY hh:mm A");
+    //   },
+    //   sorter: true,
+    // },
     {
       title: "Start date",
       dataIndex: "startDate",
@@ -141,35 +141,25 @@ const ManageAppointments = () => {
       title: "Action",
       render: function (data: any) {
         return (
-          <>
+          <div className="flex gap-2">
             <Link href={`/admin/manage-appointments/detail/${data?.id}`}>
-              <Button
-                style={{
-                  margin: "0px 5px",
-                }}
-                onClick={() => console.log(data)}
-                type="primary"
-              >
-                <EyeOutlined />
-              </Button>
+              <div onClick={() => console.log(data)}>
+                <EyeOutlined className="text-sky-700 text-2xl hover:opacity-70" />
+              </div>
             </Link>
-            <Button
+            <div
               // @ts-ignore
               onClick={() => appointmentApproveHandler(data?.id, item?.status)}
-              type="primary"
-              danger
             >
-              <CheckOutlined />
-            </Button>{" "}
-            <Button
+              <CheckOutlined className="text-sky-700 text-2xl hover:opacity-70" />
+            </div>
+            <div
               // @ts-ignore
               onClick={() => appointmentCancelHandler(data?.id, item?.status)}
-              type="primary"
-              danger
             >
-              <CloseCircleOutlined /> Cancel
-            </Button>
-          </>
+              <CloseCircleOutlined className="text-sky-700 text-2xl hover:opacity-70" />{" "}
+            </div>
+          </div>
         );
       },
     },
@@ -194,7 +184,7 @@ const ManageAppointments = () => {
   };
 
   return (
-    <div>
+    <div className="overflow-hidden">
       <UMBreadCrumb
         items={[
           {
@@ -217,25 +207,19 @@ const ManageAppointments = () => {
           type="text"
           size="large"
           placeholder="Search..."
-          style={{
-            width: "20%",
-          }}
+          className="w-1/2 md:w-1/5"
           onChange={(e) => {
             setSearchTerm(e.target.value);
           }}
         />
-        <div>
+        <div className="flex gap-2">
           <Link href="/admin/car-listings/create">
-            <Button type="primary">Create</Button>
+            <div className="bg-sky-700 text-white text-2xl px-2">Create</div>
           </Link>
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
-            <Button
-              onClick={resetFilters}
-              type="primary"
-              style={{ margin: "0px 5px" }}
-            >
-              <ReloadOutlined />
-            </Button>
+            <div onClick={resetFilters} className="bg-sky-700 text-white px-2">
+              <ReloadOutlined className="text-white text-2xl hover:opacity-70 px-2 py-1" />
+            </div>
           )}
         </div>
       </ActionBar>

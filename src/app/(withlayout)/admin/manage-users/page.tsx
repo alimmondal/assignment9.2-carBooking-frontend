@@ -6,7 +6,7 @@ import UMTable from "@/components/ui/UMTable";
 import { useDeleteUserMutation, useUsersQuery } from "@/redux/api/userApi";
 import { useDebounced } from "@/redux/hooks";
 import { DeleteOutlined, EyeOutlined } from "@ant-design/icons";
-import { Button, Input, message } from "antd";
+import { Input, message } from "antd";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { useState } from "react";
@@ -69,11 +69,11 @@ const ManageUsersPage = () => {
       render: function (data: any) {
         // console.log(data);
         return (
-          <>
+          <div className="flex gap-2">
             <Link href={`/admin/manage-users/detail/${data}`}>
-              <Button onClick={() => console.log(data)} type="primary">
-                <EyeOutlined />
-              </Button>
+              <div onClick={() => console.log(data)}>
+                <EyeOutlined className="text-sky-700 text-2xl hover:opacity-70" />
+              </div>
             </Link>
             {/* <Link href={`/admin/manage-users/edit/${data}`}>
               <Button
@@ -86,18 +86,15 @@ const ManageUsersPage = () => {
                 <EditOutlined />
               </Button>
             </Link> */}
-            <Button
-              type="primary"
+            <div
               onClick={() => {
                 setOpen(true);
                 setAdminId(data);
               }}
-              danger
-              style={{ marginLeft: "3px" }}
             >
-              <DeleteOutlined />
-            </Button>
-          </>
+              <DeleteOutlined className="text-rose-700 text-2xl hover:opacity-70" />
+            </div>
+          </div>
         );
       },
     },
@@ -154,9 +151,7 @@ const ManageUsersPage = () => {
           size="large"
           placeholder="Search"
           onChange={(e) => setSearchTerm(e.target.value)}
-          style={{
-            width: "20%",
-          }}
+          className="w-1/2 md:w-1/5"
         />
         {/* <div>
           <Link href="/admin/manage-users/create">

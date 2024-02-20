@@ -2,7 +2,11 @@
 import Button from "@/components/ui/Button";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
 import { useCarListingQuery } from "@/redux/api/carListingApi";
-import { CommentOutlined, ProfileOutlined } from "@ant-design/icons";
+import {
+  ArrowRightOutlined,
+  CommentOutlined,
+  ProfileOutlined,
+} from "@ant-design/icons";
 import { Col, Row } from "antd";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,6 +18,15 @@ type ICarProps = {
 const SingleCarDetailPage = ({ params }: ICarProps) => {
   const { id } = params;
   const { data, isLoading } = useCarListingQuery(id);
+
+  console.log("data", data);
+
+  const comments = data?.Reviews?.map((review: any) => {
+    // console.log(review.comment, "comment");
+    return review.comment;
+  });
+  // console.log("comments", comments);
+
   return (
     <div>
       <UMBreadCrumb
@@ -24,8 +37,8 @@ const SingleCarDetailPage = ({ params }: ICarProps) => {
       />
       <h1>Detail of The Car</h1>
       <div>
-        <Row gutter={{ xs: 8, sm: 16, md: 26, lg: 32 }}>
-          <Col className="gutter-row" lg={{ span: 12 }}>
+        <Row>
+          <Col lg={{ span: 12 }}>
             <Image
               src={data?.imgUrl}
               width={500}
@@ -55,12 +68,17 @@ const SingleCarDetailPage = ({ params }: ICarProps) => {
                 fontSize: "12px",
               }}
             >
-              <span style={{ fontSize: "20px" }}>
+              <span className="">
                 <Link href={"/profile"}>
-                  <ProfileOutlined />
+                  <div className="flex gap-2">
+                    <ProfileOutlined className="text-sky-500 text-xl" />
+                    <p className="text-sky-500">Profile</p>
+                  </div>
                 </Link>
               </span>
             </p>
+            <p className="">Price: $ {data?.price}</p>
+            <p className="">Category: {data?.category}</p>
             <div
               style={{
                 fontSize: "20px",
@@ -69,14 +87,25 @@ const SingleCarDetailPage = ({ params }: ICarProps) => {
               <h3>Key Features:</h3>
               <p>{data?.description}</p>
             </div>
-            <h3>
-              <CommentOutlined />: {data?.comments}
-            </h3>
+            <div>
+              <div className="flex gap-2">
+                <CommentOutlined className="text-sky-500 text-xl" />:
+                <h2>Comments:</h2>
+              </div>
+              <div className="flex flex-row py-1">
+                <ArrowRightOutlined />
+                {comments}
+              </div>
+            </div>
 
             <br />
             <div>
               <Link href={"/admin/car-listings"}>
-                <Button className="max-w-fit" small label="Delete" />
+                <Button
+                  className="max-w-fit hover:opacity-50"
+                  small
+                  label="Delete"
+                />
               </Link>
             </div>
             <br />

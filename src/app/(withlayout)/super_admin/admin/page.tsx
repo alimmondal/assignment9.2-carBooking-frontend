@@ -11,7 +11,7 @@ import {
   EyeOutlined,
   ReloadOutlined,
 } from "@ant-design/icons";
-import { Button, Input, message } from "antd";
+import { Input, message } from "antd";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { useState } from "react";
@@ -74,35 +74,28 @@ const AdminPage = () => {
       render: function (data: any) {
         // console.log(data);
         return (
-          <>
+          <div className="flex gap-2">
             <Link href={`/super_admin/admin/detail/${data}`}>
-              <Button onClick={() => console.log(data)} type="primary">
-                <EyeOutlined />
-              </Button>
+              <div onClick={() => console.log(data)}>
+                <EyeOutlined className="text-sky-700 text-xl hover:opacity-70" />
+              </div>
             </Link>
             <Link href={`/super_admin/admin/edit/${data}`}>
-              <Button
-                style={{
-                  margin: "0px 5px",
-                }}
-                // onClick={() => console.log(data)}
-                type="primary"
+              <div
+              // onClick={() => console.log(data)}
               >
-                <EditOutlined />
-              </Button>
+                <EditOutlined className="text-sky-700 text-xl hover:opacity-70" />
+              </div>
             </Link>
-            <Button
-              type="primary"
+            <div
               onClick={() => {
                 setOpen(true);
                 setAdminId(data);
               }}
-              danger
-              style={{ marginLeft: "3px" }}
             >
-              <DeleteOutlined />
-            </Button>
-          </>
+              <DeleteOutlined className="text-rose-700 text-xl hover:opacity-70" />
+            </div>
+          </div>
         );
       },
     },
@@ -141,7 +134,7 @@ const AdminPage = () => {
   };
 
   return (
-    <div>
+    <div className="overflow-hidden">
       <UMBreadCrumb
         items={[
           {
@@ -159,37 +152,37 @@ const AdminPage = () => {
           size="large"
           placeholder="Search"
           onChange={(e) => setSearchTerm(e.target.value)}
-          style={{
-            width: "20%",
-          }}
+          className="w-1/2 md:w-1/5"
         />
-        <div>
+        <div className="flex gap-2">
           <Link href="/super_admin/admin/create">
-            <Button type="primary">Create Admin</Button>
+            <div className="bg-sky-700  px-2 py-1">
+              <p className="md:text-xl text-white">Create Admin</p>
+            </div>
           </Link>
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
-            <Button
-              style={{ margin: "0px 5px" }}
-              type="primary"
+            <div
+              className="bg-sky-700 text-white px-2 py-1"
               onClick={resetFilters}
             >
               <ReloadOutlined />
-            </Button>
+            </div>
           )}
         </div>
       </ActionBar>
-
-      <UMTable
-        loading={isLoading}
-        columns={columns}
-        dataSource={admins}
-        pageSize={size}
-        totalPages={meta?.total}
-        showSizeChanger={true}
-        onPaginationChange={onPaginationChange}
-        onTableChange={onTableChange}
-        showPagination={true}
-      />
+      <div className="bg-white overflow-x-auto">
+        <UMTable
+          loading={isLoading}
+          columns={columns}
+          dataSource={admins}
+          pageSize={size}
+          totalPages={meta?.total}
+          showSizeChanger={true}
+          onPaginationChange={onPaginationChange}
+          onTableChange={onTableChange}
+          showPagination={true}
+        />
+      </div>
 
       <UMModal
         title="Remove admin"

@@ -2,15 +2,16 @@
 
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
+import Button from "@/components/ui/Button";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
 import { useAdminQuery, useUpdateAdminMutation } from "@/redux/api/adminApi";
 
-import { Button, Col, Row, message } from "antd";
+import { Col, Row, message } from "antd";
 
 const EditAdminPage = ({ params }: any) => {
   // console.log("params", params);
   const { data, isLoading } = useAdminQuery(params?.id);
-  console.log(data);
+  // console.log(data);
   const [updateAdmin] = useUpdateAdminMutation();
 
   const onSubmit = async (values: any) => {
@@ -65,6 +66,8 @@ const EditAdminPage = ({ params }: any) => {
             <h1
               style={{
                 margin: "15px 0px",
+                textAlign: "center",
+                fontSize: "20px",
               }}
             >
               Edit Admin
@@ -120,9 +123,9 @@ const EditAdminPage = ({ params }: any) => {
                     required
                   />
                 </div>
-                <Button className="mt-3" type="primary" htmlType="submit">
-                  Edit
-                </Button>
+                <div className="max-w-fit">
+                  <Button label="Edit" small className="mt-3" />
+                </div>
               </Form>
             </div>
           </Col>

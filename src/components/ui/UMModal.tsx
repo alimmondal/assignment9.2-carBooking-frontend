@@ -1,3 +1,4 @@
+import { getUserInfo } from "@/services/auth.service";
 import { Modal } from "antd";
 import { ReactElement, ReactNode } from "react";
 
@@ -20,6 +21,21 @@ const UMModal = ({
   showCancelButton = true,
   showOkButton = true,
 }: IModal) => {
+  const { role } = getUserInfo() as any;
+
+  const okButtonProps = role
+    ? {
+        style: {
+          display: showOkButton ? "inline" : "none",
+          backgroundColor: "skyblue",
+        },
+        className: "text-black", // Replace with your custom class
+      }
+    : {
+        style: { display: "none" },
+        disabled: true,
+      };
+
   return (
     <Modal
       title={title}
@@ -29,7 +45,7 @@ const UMModal = ({
       cancelButtonProps={{
         style: { display: showCancelButton ? "inline" : "none" },
       }}
-      okButtonProps={{ style: { display: showOkButton ? "inline" : "none" } }}
+      okButtonProps={okButtonProps}
     >
       {children}
     </Modal>

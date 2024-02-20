@@ -169,17 +169,19 @@ const CarListingPage = () => {
         </div>
       </ActionBar>
 
-      <UMTable
-        loading={isLoading}
-        columns={columns}
-        dataSource={cars}
-        pageSize={size}
-        totalPages={meta?.total}
-        showSizeChanger={true}
-        onPaginationChange={onPaginationChange}
-        onTableChange={onTableChange}
-        showPagination={true}
-      />
+      <div className="bg-white overflow-x-auto">
+        <UMTable
+          loading={isLoading}
+          columns={columns}
+          dataSource={cars}
+          pageSize={size}
+          totalPages={meta?.total}
+          showSizeChanger={true}
+          onPaginationChange={onPaginationChange}
+          onTableChange={onTableChange}
+          showPagination={true}
+        />
+      </div>
     </div>
   );
 };

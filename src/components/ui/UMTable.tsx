@@ -3,6 +3,7 @@
 import { Table } from "antd";
 
 type UMTableProps = {
+  className?: string;
   loading?: boolean;
   columns: any;
   dataSource: any;
@@ -15,6 +16,7 @@ type UMTableProps = {
 };
 
 const UMTable = ({
+  className,
   loading = false,
   columns,
   dataSource,
@@ -37,6 +39,7 @@ const UMTable = ({
 
   return (
     <Table
+      className={className}
       loading={loading}
       columns={columns}
       dataSource={dataSource}

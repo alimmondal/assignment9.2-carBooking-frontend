@@ -19,7 +19,7 @@ const ReservationDetailPage = ({ params }: IProps) => {
   //   console.log(user);
 
   return (
-    <>
+    <div className="overflow-hidden">
       <UMBreadCrumb
         items={[
           {
@@ -109,7 +109,7 @@ const ReservationDetailPage = ({ params }: IProps) => {
         </Col>
       </Row>
       <ManageAppointments />
-    </>
+    </div>
   );
 };
 

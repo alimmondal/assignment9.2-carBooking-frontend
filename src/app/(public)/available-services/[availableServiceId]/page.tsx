@@ -178,20 +178,18 @@ const SingleService = ({
             ))}
           </ul>
           <div className="max-w-fit mt-5">
-            {role ? (
-              <Button
-                label="Book an Appointment"
-                onClick={() => {
-                  setOpen(true);
-                  setListingId(data?.id);
-                }}
-              />
-            ) : (
-              <Button
-                label="Login to Book a Service"
-                onClick={() => push("/login")}
-              />
-            )}
+            <Button
+              label="Book an Appointment"
+              onClick={() => {
+                setOpen(true);
+                setListingId(data?.id);
+              }}
+            />
+
+            {/* <Button
+              label="Login to Book a Service"
+              onClick={() => push("/login")}
+            /> */}
           </div>
         </Col>
       </Row>
@@ -202,35 +200,51 @@ const SingleService = ({
         closeModal={() => setOpen(false)}
         handleOk={() => onSubmit(listingId, formValue)}
       >
-        <div>
-          <Form submitHandler={onSubmit}>
-            <div
-              style={{
-                border: "1px solid #d9d9d9",
-                borderRadius: "5px",
-                padding: "15px",
-                marginBottom: "10px",
-              }}
-            >
-              <FormDatePicker
-                name="startDate"
-                label="Start Date"
-                size="large"
-                onChange={(date, dateString) =>
-                  setFormValue({ ...formValue, startDate: date })
-                }
-              />
-              <FormDatePicker
-                name="endDate"
-                label="end Date"
-                size="large"
-                onChange={(date, dateString) =>
-                  setFormValue({ ...formValue, endDate: date })
-                }
-              />
-            </div>
-          </Form>
-        </div>
+        {role ? (
+          <div>
+            <Form submitHandler={onSubmit}>
+              <div
+                style={{
+                  border: "1px solid #d9d9d9",
+                  borderRadius: "5px",
+                  padding: "15px",
+                  marginBottom: "10px",
+                }}
+              >
+                <FormDatePicker
+                  name="startDate"
+                  label="Start Date"
+                  size="large"
+                  onChange={(date, dateString) =>
+                    setFormValue({ ...formValue, startDate: date })
+                  }
+                />
+                <FormDatePicker
+                  name="endDate"
+                  label="end Date"
+                  size="large"
+                  onChange={(date, dateString) =>
+                    setFormValue({ ...formValue, endDate: date })
+                  }
+                />
+                {/* <FormInput
+                  name="days"
+                  type="number"
+                  size="large"
+                  label="Total days"
+                  placeholder="Total days"
+                  required
+                  disabled
+                /> */}
+              </div>
+            </Form>
+          </div>
+        ) : (
+          <p onClick={() => push("/login")}>
+            Please <span className="text-red-500 cursor-pointer">login </span>{" "}
+            to Book a Service
+          </p>
+        )}
       </UMModal>
 
       {/* Review and ratings */}
